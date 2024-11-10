@@ -1,0 +1,6 @@
+.layout-row.layout-wrap
+	.layout-column.layout-align-space-between-center.flex-10.mb-20(*ngFor='let icon of icons')
+		cub-icon(size='28px', [name]='icon?.properties?.name')
+		.text-truncate.text-center.mt-5(
+			[title]='icon?.properties?.name')
+			| {{ icon?.properties?.name }}

@@ -1,0 +1,221 @@
+{
+	"name": "web",
+	"$schema": "node_modules/nx/schemas/project-schema.json",
+	"root": "apps/web",
+	"sourceRoot": "apps/web/src",
+	"projectType": "application",
+
+	"targets": {
+		"build": {
+			"executor": "@angular-builders/custom-webpack:browser",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"customWebpackConfig": {
+					"path": "apps/web/webpack.config.js"
+				},
+				"outputPath": "dist/web",
+				"index": "apps/web/src/index.html",
+				"main": "apps/web/src/main.ts",
+				"tsConfig": "apps/web/tsconfig.json",
+				"webWorkerTsConfig": "apps/web/src/tsconfig.worker.json",
+				"ngswConfigPath": "apps/web/ngsw-config.json",
+				"outputHashing": "none",
+				"crossOrigin": "use-credentials",
+				"aot": false,
+				"optimization": false,
+				"sourceMap": true,
+				"namedChunks": true,
+				"vendorChunk": true,
+				"extractLicenses": false,
+				"buildOptimizer": false,
+				"serviceWorker": false,
+				"statsJson": false,
+				"assets": [
+					{
+						"glob": "**/*",
+						"input": "apps/web/src/assets/",
+						"output": "/assets/"
+					},
+					{
+						"glob": "favicon.ico",
+						"input": "apps/web/src/assets/",
+						"output": "/"
+					},
+					"apps/web/src/robots.txt",
+					"apps/web/src/sitemap.xml"
+				],
+				"styles": [
+					"apps/web/src/scss/styles.scss",
+					"apps/web/src/scss/libs.scss",
+					"node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+					"node_modules/swiper/swiper-bundle.min.css",
+					"node_modules/swiper/modules/navigation.min.css",
+					"node_modules/swiper/modules/pagination.min.css",
+					"node_modules/primeicons/primeicons.css",
+					"node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+					"node_modules/primeng/resources/primeng.min.css"
+				],
+				"scripts": [
+					"node_modules/swiper/swiper-bundle.min.js",
+					"apps/web/preload-font.js"
+				],
+				"stylePreprocessorOptions": {
+					"includePaths": ["apps/web"]
+				},
+				"allowedCommonJsDependencies": [
+					"@editorjs/checklist",
+					"@editorjs/code",
+					"@editorjs/delimiter",
+					"@editorjs/header",
+					"@editorjs/inline-code",
+					"@editorjs/list",
+					"@editorjs/marker",
+					"@editorjs/paragraph",
+					"@editorjs/quote",
+					"@editorjs/raw",
+					"@editorjs/table",
+					"@editorjs/underline",
+					"@editorjs/alert",
+					"@editorjs/embed",
+					"@editorjs/link",
+					"@editorjs/image",
+					"@editorjs/image",
+					"angular-svg-round-progressbar",
+					"cropperjs",
+					"crypto-js",
+					"editorjs-drag-drop",
+					"editorjs-text-alignment-blocktune",
+					"editorjs-text-color-plugin",
+					"editorjs-undo",
+					"exceljs",
+					"file-saver",
+					"image-conversion",
+					"lodash",
+					"moment-timezone",
+					"moment",
+					"moment/locale/vi",
+					"quill-magic-url",
+					"quill-table",
+					"quill",
+					"xlsx"
+				]
+			},
+			"configurations": {
+				"local": {
+					"fileReplacements": [
+						{
+							"replace": "apps/web/src/environments/environment.ts",
+							"with": "apps/web/src/environments/environment.local.ts"
+						}
+					]
+				},
+				"aot": {
+					"aot": true
+				},
+				"dev": {
+					"fileReplacements": [
+						{
+							"replace": "apps/web/src/environments/environment.ts",
+							"with": "apps/web/src/environments/environment.dev.ts"
+						},
+						{
+							"replace": "apps/web/src/environments/hash.ts",
+							"with": "apps/web/src/environments/hash.dev.ts"
+						}
+					]
+				},
+				"testing": {
+					"outputHashing": "all",
+					"aot": true,
+					"optimization": true,
+					"sourceMap": false,
+					"extractLicenses": true,
+					"namedChunks": false,
+					"buildOptimizer": true,
+					"serviceWorker": true,
+					"fileReplacements": [
+						{
+							"replace": "apps/web/src/environments/environment.ts",
+							"with": "apps/web/src/environments/environment.testing.ts"
+						},
+						{
+							"replace": "apps/web/src/environments/hash.ts",
+							"with": "apps/web/src/environments/hash.testing.ts"
+						}
+					]
+				},
+				"production": {
+					"outputHashing": "all",
+					"aot": true,
+					"optimization": true,
+					"sourceMap": false,
+					"namedChunks": false,
+					"extractLicenses": true,
+					"buildOptimizer": true,
+					"serviceWorker": true,
+					"outputPath": "dist/production",
+					"fileReplacements": [
+						{
+							"replace": "apps/web/src/environments/environment.ts",
+							"with": "apps/web/src/environments/environment.production.ts"
+						},
+						{
+							"replace": "apps/web/src/environments/hash.ts",
+							"with": "apps/web/src/environments/hash.production.ts"
+						}
+					]
+				}
+			}
+		},
+		"serve": {
+			"executor": "@angular-builders/custom-webpack:dev-server",
+			"options": {
+				"buildTarget": "web:build",
+				"host": "0.0.0.0",
+				"port": 8888,
+				"open": true
+			},
+			"configurations": {
+				"local": {
+					"buildTarget": "web:build:local"
+				},
+				"aot": {
+					"buildTarget": "web:build:aot"
+				},
+				"production": {
+					"buildTarget": "web:build:production"
+				},
+				"dev": {
+					"buildTarget": "web:build:dev"
+				},
+				"testing": {
+					"buildTarget": "web:build:testing"
+				}
+			}
+		},
+		"extract-i18n": {
+			"executor": "@angular-builders:extract-i18n",
+			"options": {
+				"buildTarget": "web:build"
+			}
+		},
+		"lint": {
+			"executor": "@angular-builders/custom-webpack:extract-i18n",
+			"options": {
+				"lintFilePatterns": [
+					"apps/web/src/**/*.ts",
+					"apps/web/src/**/*.html"
+				]
+			}
+		}
+	},
+	"schematics": {
+		"@schematics/angular:component": {
+			"prefix": "app",
+			"style": "scss"
+		},
+		"@schematics/angular:directive": {
+			"prefix": "app"
+		}
+	}
+}

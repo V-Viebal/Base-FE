@@ -1,0 +1,21 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "./src",
+		"paths": {
+			"@main": ["app/main"],
+			"@main/*": ["app/main/*"],
+			"@resources": ["app/resources"],
+			"@resources/*": ["app/resources/*"],
+			"@core": ["app/@core"],
+			"@core/*": ["app/@core/*"],
+			"@error": ["app/@error"],
+			"@error/*": ["app/@error/*"],
+			"@cub": ["app/@cub"],
+			"@cub/*": ["app/@cub/*"],
+			"@environments": ["environments"],
+			"@environments/*": ["environments/*"],
+			"angular-core": ["../../../dist/angular-core"],
+		},
+	},
+}

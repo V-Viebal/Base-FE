@@ -1,0 +1,57 @@
+div(cubDialogHeader)
+	.layout-column.layout-gap-16.full-width(
+		*ngIf='!account; else elseBlock;')
+			button.full-width(
+				cubButton,
+				size='large',
+				(click)='openSignUpDialog()')
+				.text-semi-bold
+					| {{ "NAVIGATION.LABEL.SIGN_UP" | translate }}
+			button.full-width(
+				size='large',
+				cubButton='secondary',
+				(click)='openSignInDialog()')
+				.text-semi-bold
+					| {{ "NAVIGATION.LABEL.SIGN_IN" | translate }}
+	ng-template(#elseBlock)
+		button.full-width(
+			cubButton,
+			size='large',
+			(click)='openSignUpDialog()')
+			.text-semi-bold
+				| {{ "NAVIGATION.LABEL.MY_CAREER" | translate }}
+div(cubDialogContent)
+	cub-divider
+	.layout-column
+		ng-container(*ngIf='account')
+			.layout-row.layout-align-start-center.layout-gap-6.ph-8.pv-12
+				cub-icon(
+					name='user',
+					size='16px')
+				h5
+					| {{ "NAVIGATION.LABEL.MY_ACCOUNT" | translate }}
+			button.item(
+				(click)='openAccountPage()')
+				| {{ "NAVIGATION.LABEL.ACCOUNT_INFO" | translate }}
+			button.item(
+				(click)='openSettingPage()')
+				| {{ "NAVIGATION.LABEL.SETTING" | translate }}
+			button.item(
+				(click)='logout()')
+				| {{ "NAVIGATION.LABEL.LOG_OUT" | translate }}
+		cub-divider
+		.layout-row.layout-align-start-center.layout-gap-6.ph-8.pv-12
+			cub-icon(
+				name='folder',
+				size='16px')
+			h5
+				| {{ "NAVIGATION.LABEL.RESOURCES" | translate }}
+		button.item(
+			(click)='openExplorePage()')
+			| {{ "NAVIGATION.LABEL.EXPLORE" | translate }}
+		button.item(
+			(click)='openAboutUsPage()')
+			| {{ "NAVIGATION.LABEL.ABOUT_US" | translate }}
+		button.item(
+			(click)='openFAQPage()')
+			| {{ "NAVIGATION.LABEL.FAQ" | translate }}

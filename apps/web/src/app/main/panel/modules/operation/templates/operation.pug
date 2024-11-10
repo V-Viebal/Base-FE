@@ -1,0 +1,172 @@
+cub-popup(
+	#popup,
+	width='100vw',
+	height='100vh')
+	cub-popup-header
+		ng-template(cubPopupHeader)
+			.layout-row.layout-align-space-between-center
+				h4.text-nowrap
+					+if('isNew')
+						| Tạo mới dịch vụ
+					+else
+						| Chỉnh sửa dịch vụ
+				.layout-row.layout-gap-12
+					button.w-125(
+						cubButton='secondary',
+						(click)='close()')
+						| Huỷ bỏ
+					button.w-125(
+						cubButton,
+						[disabled]='!operation?.name?.length || !operation?.description',
+						(click)='save()')
+						| Lưu
+	cub-popup-content
+		ng-template(cubPopupContent)
+			.layout-row.flex.layout-gap-16.p-8
+				.flex-30.layout-column.layout-gap-16
+					cub-form-field(
+						required,
+						displayErrorMode='tooltip',
+						label='Tiêu đề')
+						input(
+							cubFormFieldInput,
+							autoFocusOn,
+							placeholder='Nhập...',
+							[formControl]='titleControl',
+							[(valueControl)]='operation.name')
+					cub-dropdown(
+						required,
+						clearable=false,
+						displayErrorMode='tooltip',
+						label='Loại dịch vụ',
+						[formControl]='typeControl',
+						[(valueControl)]='operation.type')
+						+for('type of operationTypes; track type')
+							cub-dropdown-item(
+								[label]='type.label',
+								[value]='type.value')
+				cub-divider(vertical)
+				cub-scroll-bar.h-vh-86
+					cub-paragraph-editor(
+						placeholder='Nhập mô tả...',
+						[data]='descriptionData',
+						[raw]='descriptionRaw',
+						(dataChange)=`onDescriptionChange()`)
+
+cub-menu(
+	#filterMenu,
+	width='220px')
+	cub-menu-content
+		ng-template(cubMenuContent)
+			cub-dropdown.full-width(
+				multiple,
+				includeOuterSize,
+				placeholder='Lựa chọn',
+				[formControl]='operationTypeControl',
+				[(valueControl)]='operationType',
+				(valueControlChange)='filterByType( $event )')
+				+for('type of operationTypes; track type')
+					cub-dropdown-item(
+						[label]='type.label',
+						[value]='type.value')
+
+p-toolbar(styleClass='mb-4 gap-2')
+	ng-template(pTemplate='right')
+		button(
+			cubBasicButton,
+			cubPopupTriggerDisableClose,
+			size='large',
+			[cubPopupTriggerOtherConfig]=`{
+				resizable: true,
+				disableClose: true,
+				hasBackdrop: true,
+				autoFocus: true,
+				origin: null
+			}`,
+			[cubPopupTriggerFor]='popup',
+			(mousedown)='newOperation()')
+			i.pi.pi-plus.mr-4
+			| Thêm mới
+	h4
+		| {{ "OPERATION.LABEL.SERVICE" | translate }}
+
+p-table(
+	#operationTable,
+	dataKey='id',
+	currentPageReportTemplate='Hiển thị hàng từ {first} tới {last} của tổng {totalRecords} hàng',
+	[resizableColumns]='true',
+	[value]='operations',
+	[rows]='10',
+	[paginator]='true',
+	[tableStyle]="{ 'min-width': '75rem' }",
+	[rowHover]='true',
+	[globalFilterFields]="['type']",
+	[showCurrentPageReport]='true')
+	ng-template(pTemplate='header')
+		tr
+			th(style="width:3rem")
+			th
+				| Tiêu Đề
+			th
+				| Mô Tả
+			th
+				.layout-row.layout-gap-4
+					| Loại
+					button(
+						cubBasicButton,
+						size='large',
+						[active]='filterMenu?.isOpened',
+						[cubMenuTriggerFor]='filterMenu')
+						i.pi.pi-filter
+			th.text-center
+				| Công Cụ
+	ng-template(pTemplate='emptymessage')
+		tr
+			td([attr.colspan]='5')
+				.text-center
+					| (Trống)
+	ng-template(pTemplate='body', let-o, let-index="rowIndex")
+		tr.cursor(
+			cubBasicButton,
+			cubPopupTriggerDisableClose,
+			iconSize='24px',
+			[cubPopupTriggerOtherConfig]=`{
+				resizable: true,
+				hasBackdrop: true,
+				autoFocus: true,
+				origin: null
+			}`,
+			[cubPopupTriggerFor]='popup',
+			(mousedown)='editOperation( o )')
+			td
+			td.mr-12(style="max-width: 20rem")
+				.text-truncate-multi-line([title]='o?.name | empty')
+					| {{ o?.name | empty }}
+			td.mr-12(style="max-width: 20rem")
+				.text-truncate-multi-line([title]='o?.description?.text | empty')
+					| {{ o?.description?.text | empty }}
+			td.mr-12
+				| {{ o.type | typeTranslate }}
+			td
+				.layout-row.layout-align-center-center.layout-gap-12.flex
+					button.m-2(
+						cubBasicButton,
+						size='large',
+						[cubPopupTriggerOtherConfig]=`{
+							resizable: true,
+							disableClose: true,
+							hasBackdrop: true,
+							autoFocus: true,
+							origin: null
+						}`,
+						[cubPopupTriggerFor]='popup',
+						(mousedown)='editOperation( o )')
+						i.pi.pi-pencil
+					button.m-2(
+						cubBasicButton,
+						size='large',
+						(click)='delete( o.id ); $event?.stopPropagation();')
+						i.pi.pi-trash
+	ng-template(pTemplate='summary')
+		.d-flex.align-items-center.justify-content-between
+			| Tổng cộng: {{ operations ? operations.length : 0 }}

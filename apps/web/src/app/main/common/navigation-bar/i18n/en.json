@@ -1,0 +1,16 @@
+{
+	"LABEL": {
+		"ACCOUNT": "Account",
+		"ACCOUNT_SETTINGS": "Account setting",
+		"CONFIRM_CANCEL": "Confirm cancel",
+		"KEEP": "Keep",
+		"LANGUAGE": "Languages",
+		"NOTI": "Notification",
+		"WELCOME": "Welcome",
+		"SIGN_OUT": "Logout"
+	},
+	"MESSAGE": {
+		"CANCEL_MESSAGE": "Bạn có chắc chắn muốn hủy?",
+		"LOST_CURRENT_PROGRESS": "Bạn sẽ mất tiến trình hiện tại"
+	}
+}

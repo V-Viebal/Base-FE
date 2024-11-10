@@ -1,0 +1,10 @@
+{
+	"LABEL": {
+	},
+	"PLACEHOLDER": {
+	},
+	"MESSAGE": {
+		"SUCCESS": "Thay đổi thành công ",
+		"FAIL": "Thất bại. Xin hãy điền đầy đủ thông tin và thử lại"
+	}
+}
