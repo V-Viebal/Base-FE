@@ -70,9 +70,6 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { ENVIRONMENT } from './environments/environment';
-import * as process from 'process';
-
-window.process = process;
 
 if ( ENVIRONMENT.PRODUCTION ) {
 	enableProdMode();

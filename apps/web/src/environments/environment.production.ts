@@ -4,9 +4,9 @@ import * as process from 'process';
 // eslint-disable-next-line @typescript-eslint/typedef
 export const ENVIRONMENT = {
 	PRODUCTION						: true,
-	SERVER_API_URL					: process.env.SERVER_API_URL || 'https://api.viebal.top/api/v1',
+	SERVER_API_URL					: 'https://api.viebal.top/api/v1',
 	SERVER_WEBSOCKET_URL			: '',
-	FILE_SYSTEM_API_URL				: process.env.SERVER_API_URL || 'https://api.viebal.top/api/v1',
+	FILE_SYSTEM_API_URL				: 'https://api.viebal.top/api/v1',
 	APP_URL							: '',
 	APP_NAME						: 'AlphaVisa',
 	APP_TITLE						: 'AlphaVisa',
