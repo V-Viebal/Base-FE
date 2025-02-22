@@ -1,14 +1,14 @@
 .relative.overflow-hidden.flex.flex-col.min-h-screen(class='supports-[overflow:clip]:overflow-clip')
 	header#site-header.absolute.top-2.w-full.z-30(class='md:top-6')
 		.max-w-6xl.mx-auto.px-4(class='sm:px-6')
-			.flex.items-center.justify-between.gap-3.h-14.rounded-2xl.px-3.backdrop-blur-sm.bg-white.bg-opacity-80
+			.flex.items-center.justify-between.gap-3.h-56.rounded-2xl.px-3.backdrop-blur-sm.bg-white.bg-opacity-80
 				div
 					a.block(href='index.htm' rel='home')
-						span.sr-only Cruip
-						svg(width='28' height='28' xmlns='http://www.w3.org/2000/svg')
-							g(fill='none' fill-rule='evenodd')
-								path(d='M28 14a3.5 3.5 0 10-7 0 3.5 3.5 0 007 0' fill='#D1D5DB')
-								path(d='M23.865 23.9a13.932 13.932 0 01-6.377 3.66c-1.115.286-2.284.44-3.488.44a13.893 13.893 0 01-10.512-4.797A13.968 13.968 0 01.048 14c0-3.523 1.298-6.742 3.44-9.203A13.893 13.893 0 0114 0c1.204 0 2.373.154 3.488.44a13.932 13.932 0 016.377 3.66l-4.933 4.95A6.942 6.942 0 0014 7c-3.852 0-6.976 3.134-6.976 7l.002.18C7.122 17.964 10.208 21 14 21c1.926 0 3.67-.784 4.932-2.05l4.933 4.95z' fill='#7E5FFB' fill-rule='nonzero')
+						cub-image(
+							noLazy,
+							width='28px',
+							height='28px',
+							[src]='"/assets/images/logos/logo.svg"')
 				.inline-flex.items-center
 					nav.hidden(class='sm:flex sm:grow')
 						ul.flex.grow.justify-end.flex-wrap.items-center.text-sm
@@ -17,13 +17,13 @@
 							li.ml-5.pl-5.border-l.border-gray-200
 								a.block.font-medium.text-gray-800(class='hover:underline' href='login/index.htm') Sign In
 					.ml-6
-						a.btn-xs.h-8.text-gray-50.bg-gray-800.group(class='hover:bg-gray-900' href='unlimited-access/index.htm')
+						a.btn-xs.h-32.text-gray-50.bg-gray-800.group(class='hover:bg-gray-900' href='unlimited-access/index.htm')
 							span All Access
 							span.transition-transform.ml-1(class='text-white/60 group-hover:translate-x-0.5')
 								svg.fill-current(xmlns='http://www.w3.org/2000/svg' width='11' height='11')
 									path(d='M5.977 10.368 4.953 9.354 8.02 6.286H.568V4.805H8.02L4.953 1.742 5.977.723 10.8 5.546z')
 					.flex.ml-2(class='sm:hidden')
-						button#header-nav-toggle.group.inline-flex.w-8.h-8.text-gray-800.text-center.items-center.justify-center.transition(aria-controls='header-nav' aria-expanded='false')
+						button#header-nav-toggle.group.inline-flex.w-32.h-32.text-gray-800.text-center.items-center.justify-center.transition(aria-controls='header-nav' aria-expanded='false')
 							span.sr-only Menu
 							svg.fill-current.pointer-events-none(width='16' height='16' viewbox='0 0 16 16' xmlns='http://www.w3.org/2000/svg')
 								rect.origin-center.transition-all.duration-300(class='ease-[cubic-bezier(.5,.85,.25,1.1)] -translate-y-[5px] translate-x-[7px] group-[[aria-expanded=true]]:rotate-[315deg] group-[[aria-expanded=true]]:translate-y-0 group-[[aria-expanded=true]]:translate-x-0' y='7' width='9' height='2' rx='1')
@@ -39,7 +39,7 @@
 	main.grow
 		.pb-12
 			section.relative.z-10(class='before:absolute before:inset-0 before:pointer-events-none before:-z-10 before:bg-gray-100 after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-gray-900/10 after:to-transparent')
-				.absolute.inset-0.pointer-events-none.-z-10(class='bg-[linear-gradient(145deg,var(--tw-gradient-stops))] from-violet-500/25 to-gray-200/0 to-50%' aria-hidden='true')
+				.absolute.inset-0.pointer-events-none.-z-10.bg-gradient(aria-hidden='true')
 					svg.absolute(class='-top-[200px] left-1/2 -translate-x-1/2 -ml-[520px]' xmlns='http://www.w3.org/2000/svg' width='674' height='596' fill='none')
 						g(filter='url(#sh1a)')
 							path(fill='url(#sh1b)' fill-rule='evenodd' d='m93 93 488 329.105L303.687 503 93 93Z' clip-rule='evenodd')
@@ -94,12 +94,12 @@
 										feflood(flood-opacity='0' result='BackgroundImageFix')
 										feblend(in='SourceGraphic' in2='BackgroundImageFix' result='shape')
 										fegaussianblur(result='effect1_foregroundBlur_2010_54' stddeviation='160')
-						.hidden.absolute.pointer-events-none.-z-10(class='sm:block left-[600px] -top-[196px] -rotate-[16deg]')
+						.absolute.pointer-events-none.-z-10(class='sm:block left-[600px] -top-[196px] -rotate-[16deg]')
 							picture
-								source(type='image/webp' srcset='assets/base/images/hero-illustration.webp')
-								img.max-w-none(decoding='async' fetchpriority='high' src='assets/base/images/hero-illustration.png' width='1051' height='740' alt='Preview of some Tailwind templates')
+								source(type='image/webp' srcset='/assets/base/images/hero-illustration.webp')
+								img.max-w-none(decoding='async' fetchpriority='high' src='/assets/base/images/hero-illustration.png' width='1051' height='740' alt='Preview of some Tailwind templates')
 			section.max-w-6xl.mx-auto.px-4(class='sm:px-6')
-				.flex.flex-col.pt-12.space-y-12.bg-gradient-to-b.to-transparent(class='md:pt-20 md:space-y-16 from-gray-300/[.12] to-90%')
+				.flex.flex-col.pt-12.space-y-12.bg-gradient-to-b.to-transparent(class='md:pt-20 md:space-y-16 from-gray-300-12 to-90')
 					.product
 						.product-inner.x-lines
 							.flex.flex-col(class='max-h-[440px] sm:flex-row sm:justify-between')
@@ -1085,9 +1085,9 @@
 							li.flex.items-center.gap-2
 								span.text-gray-500 Follow us on X
 								span.flex.-space-x-2(class='-ml-0.5')
-									a.group.relative.w-7.h-7.overflow-hidden.rounded-full.border-2.border-white(href='https://x.com/pacovitiello' target='_blank')
+									a.group.relative.w-28.h-28.overflow-hidden.rounded-full.border-2.border-white(href='https://x.com/pacovitiello' target='_blank')
 										img.absolute.inset-0.bg-cover.bg-center.transition-transform.duration-300(class='group-hover:scale-110' src='assets/base/images/x-pasquale.jpg' alt="Pasquale's profile image" width='24' height='24' decoding='async' loading='lazy')
-									a.group.relative.w-7.h-7.overflow-hidden.rounded-full.border-2.border-white.z-10(href='https://x.com/DavidePacilio' target='_blank')
+									a.group.relative.w-28.h-28.overflow-hidden.rounded-full.border-2.border-white.z-10(href='https://x.com/DavidePacilio' target='_blank')
 										img.absolute.inset-0.bg-cover.bg-center.transition-transform.duration-300(class='group-hover:scale-110' src='assets/base/images/x-davide.jpg' alt="Davide's profile image" width='24' height='24' decoding='async' loading='lazy')
 							li
 								a.text-gray-500(class='hover:underline' href='newsletter/index.htm') Newsletter
@@ -1170,7 +1170,7 @@
 		#checkout-bg.hidden.absolute.inset-0.bg-gray-900.bg-opacity-30
 		#checkout-spinner.hidden.relative
 			.flex.flex-col.items-center
-				svg.animate-spin.h-10.w-10.text-white(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24')
+				svg.animate-spin.h-40.w-40.text-white(xmlns='http://www.w3.org/2000/svg' fill='none' viewbox='0 0 24 24')
 					circle.opacity-25(cx='12' cy='12' r='10' stroke='currentColor' stroke-width='3')
 					path.opacity-75(fill='currentColor' d='M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z')
 				.text-sm.font-medium.text-white.text-opacity-75.mt-4 Checkout loading

@@ -1,5 +1,4 @@
 import { appVersion } from './version';
-import * as process from 'process';
 
 // eslint-disable-next-line @typescript-eslint/typedef
 export const ENVIRONMENT = {

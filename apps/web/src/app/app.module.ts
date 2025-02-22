@@ -55,9 +55,6 @@ import {
 import {
 	AppComponent
 } from './app.component';
-import {
-	GuidelineModule
-} from './@guideline/guideline.module';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ServiceWorkerModule: ModuleWithProviders<SWModule>
@@ -80,7 +77,6 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 		CUBImageModule,
 
 		ErrorModule,
-		GuidelineModule, //temp
 		AuthModule,
 
 		AppRoutingModules,
