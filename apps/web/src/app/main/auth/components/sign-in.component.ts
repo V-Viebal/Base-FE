@@ -27,9 +27,6 @@ import {
 import {
 	AccountService
 } from '@main/account/services/account.service';
-import {
-	CONSTANT as PANEL_CONSTANT
-} from '@main/panel/resources';
 
 import {
 	REGEXP
@@ -172,9 +169,9 @@ export class SignInComponent extends AuthBase
 		.pipe( untilCmpDestroyed( this ) )
 		.subscribe({
 			next: () => {
-				this
-				._router
-				.navigate([ PANEL_CONSTANT.PATH.MAIN ]);
+				// this
+				// ._router
+				// .navigate([ PANEL_CONSTANT.PATH.MAIN ]);
 			},
 			error: () => {
 				this.isEmailPasswordIncorrect

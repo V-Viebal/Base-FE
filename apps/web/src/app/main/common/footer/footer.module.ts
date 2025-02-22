@@ -25,8 +25,10 @@ import { PhoneFormatPipe } from '@main/base/modules/common/pipes/phone-format.pi
 
 		I18nLazyTranslateModule.forChild({
 			prefix: 'FOOTER',
-			loader: ( lang: string ) =>
-				import( `./i18n/${lang}.json` ),
+			loader: ( lang: string ) => {
+				const translations = require(`./i18n/${lang}.json`);
+				return Promise.resolve( translations );
+			}
 		}),
 
 		CUBDividerModule,

@@ -4,7 +4,6 @@
 	"root": "apps/web",
 	"sourceRoot": "apps/web/src",
 	"projectType": "application",
-
 	"targets": {
 		"build": {
 			"executor": "@angular-builders/custom-webpack:browser",
@@ -13,7 +12,7 @@
 				"customWebpackConfig": {
 					"path": "apps/web/webpack.config.js"
 				},
-				"outputPath": "dist/web",
+				"outputPath": "dist/web/browser",
 				"index": "apps/web/src/index.html",
 				"main": "apps/web/src/main.ts",
 				"tsConfig": "apps/web/tsconfig.json",
@@ -79,7 +78,6 @@
 					"@editorjs/embed",
 					"@editorjs/link",
 					"@editorjs/image",
-					"@editorjs/image",
 					"angular-svg-round-progressbar",
 					"cropperjs",
 					"crypto-js",
@@ -94,10 +92,11 @@
 					"moment-timezone",
 					"moment",
 					"moment/locale/vi",
-					"quill-magic-url",
-					"quill-table",
-					"quill",
-					"xlsx"
+					"xlsx",
+					"editorjs-alert",
+					"leader-line-new",
+					"sweetalert2",
+					"core-js"
 				]
 			},
 			"configurations": {
@@ -167,6 +166,61 @@
 				}
 			}
 		},
+		"server": {
+			"executor": "@angular-builders/custom-webpack:server",
+			"options": {
+				"outputPath": "dist/web/server",
+				"customWebpackConfig": {
+					"path": "apps/web/webpack.server.config.js"
+				},
+				"main": "apps/web/server.ts",
+				"stylePreprocessorOptions": {
+					"includePaths": ["apps/web"]
+				},
+				"tsConfig": "apps/web/src/tsconfig.server.json",
+				"optimization": false,
+				"sourceMap": true,
+				"extractLicenses": false,
+				"statsJson": false,
+				"inlineStyleLanguage": "scss",
+				"assets": ["apps/web/src/assets"]
+			},
+			"configurations": {
+				"production": {
+					"optimization": false,
+					"sourceMap": false,
+					"namedChunks": false,
+					"extractLicenses": true,
+					"outputPath": "dist/production/server"
+				},
+				"dev": {
+					"fileReplacements": [
+						{
+							"replace": "apps/web/src/environments/environment.ts",
+							"with": "apps/web/src/environments/environment.dev.ts"
+						}
+					]
+				}
+			}
+		},
+		"prerender": {
+			"executor": "@angular-devkit/build-angular:prerender",
+			"options": {
+				"routes": ["/"],
+				"browserTarget": "web:build",
+				"serverTarget": "web:server"
+			},
+			"configurations": {
+				"production": {
+					"browserTarget": "web:build:production",
+					"serverTarget": "web:server:production"
+				},
+				"dev": {
+					"browserTarget": "web:build:dev",
+					"serverTarget": "web:server:dev"
+				}
+			}
+		},
 		"serve": {
 			"executor": "@angular-builders/custom-webpack:dev-server",
 			"options": {
@@ -193,19 +247,31 @@
 				}
 			}
 		},
+		"serve-ssr": {
+			"executor": "@angular-devkit/build-angular:ssr-dev-server",
+			"options": {
+				"browserTarget": "web:build",
+				"serverTarget": "web:server",
+				"host": "0.0.0.0",
+				"port": 8080,
+				"open": true
+			},
+			"configurations": {
+				"production": {
+					"browserTarget": "web:build:production",
+					"serverTarget": "web:server:production"
+				},
+				"dev": {
+					"browserTarget": "web:build:dev",
+					"serverTarget": "web:server:dev"
+				}
+			},
+			"defaultConfiguration": "dev"
+		},
 		"extract-i18n": {
 			"executor": "@angular-builders:extract-i18n",
 			"options": {
 				"buildTarget": "web:build"
-			}
-		},
-		"lint": {
-			"executor": "@angular-builders/custom-webpack:extract-i18n",
-			"options": {
-				"lintFilePatterns": [
-					"apps/web/src/**/*.ts",
-					"apps/web/src/**/*.html"
-				]
 			}
 		}
 	},

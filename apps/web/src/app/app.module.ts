@@ -4,7 +4,8 @@ import {
 	inject
 } from '@angular/core';
 import {
-	BrowserModule
+	BrowserModule,
+	provideClientHydration
 } from '@angular/platform-browser';
 import {
 	ServiceWorkerModule as SWModule
@@ -70,8 +71,10 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 
 		I18nLazyTranslateModule.forRoot({
 			prefix: 'APP',
-			loader: ( lang: string ) =>
-				import( `./i18n/${lang}.json` ),
+			loader: (lang: string) => {
+				const translations = require(`./i18n/${lang}.json`);
+				return Promise.resolve( translations );
+			}
 		}),
 
 		CUBImageModule,
@@ -87,6 +90,8 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 		AppComponent,
 	],
 	providers: [
+		provideClientHydration(),
+		provideAnimationsAsync(),
 		{
 			provide: CUB_FILE_SERVICE,
 			useClass: FileService,
@@ -95,7 +100,6 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 			provide: CUB_LOCAL_FILE_SIZE_LIMIT,
 			useValue: CONSTANT.ALLOW_FILE_SIZE,
 		},
-		provideAnimationsAsync(),
 		{
 			provide: HTTP_INTERCEPTORS,
 			useClass: AuthInterceptor,

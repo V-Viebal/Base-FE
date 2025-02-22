@@ -37,7 +37,6 @@ import {
 	AuthRoutingModule
 } from './auth-routing.module';
 import {
-	ResetPasswordComponent,
 	SignInComponent
 } from './components';
 
@@ -50,7 +49,10 @@ import {
 
 		I18nLazyTranslateModule.forChild({
 			prefix: 'AUTH',
-			loader: ( lang: string ) => import( `./i18n/${lang}.json` ),
+			loader: ( lang: string ) => {
+				const translations = require(`./i18n/${lang}.json`);
+				return Promise.resolve( translations );
+			}
 		}),
 
 		CUBButtonModule,
@@ -64,11 +66,9 @@ import {
 		AuthRoutingModule,
 	],
 	exports: [
-		ResetPasswordComponent,
 		SignInComponent,
 	],
 	declarations: [
-		ResetPasswordComponent,
 		SignInComponent,
 	],
 })
