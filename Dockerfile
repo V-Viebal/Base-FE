@@ -6,13 +6,11 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
+COPY . .
 
 # Install dependencies in production mode for faster build
 RUN npm i
 RUN npm i -g nx@18.3.2
-
-# Copy remaining files
-COPY . .
 
 # Build the application (SSR and Prerender)
 RUN nx run angular-core:build
