@@ -100,30 +100,22 @@
 				]
 			},
 			"configurations": {
-				"local": {
-					"fileReplacements": [
-						{
-							"replace": "apps/web/src/environments/environment.ts",
-							"with": "apps/web/src/environments/environment.local.ts"
-						}
-					]
-				},
 				"aot": {
 					"aot": true
 				},
-				"dev": {
+				"develop": {
 					"fileReplacements": [
 						{
 							"replace": "apps/web/src/environments/environment.ts",
-							"with": "apps/web/src/environments/environment.dev.ts"
+							"with": "apps/web/src/environments/environment.develop.ts"
 						},
 						{
 							"replace": "apps/web/src/environments/hash.ts",
-							"with": "apps/web/src/environments/hash.dev.ts"
+							"with": "apps/web/src/environments/hash.develop.ts"
 						}
 					]
 				},
-				"testing": {
+				"staging": {
 					"outputHashing": "all",
 					"aot": true,
 					"optimization": true,
@@ -132,14 +124,15 @@
 					"namedChunks": false,
 					"buildOptimizer": true,
 					"serviceWorker": true,
+					"outputPath": "dist/production/browser",
 					"fileReplacements": [
 						{
 							"replace": "apps/web/src/environments/environment.ts",
-							"with": "apps/web/src/environments/environment.testing.ts"
+							"with": "apps/web/src/environments/environment.staging.ts"
 						},
 						{
 							"replace": "apps/web/src/environments/hash.ts",
-							"with": "apps/web/src/environments/hash.testing.ts"
+							"with": "apps/web/src/environments/hash.staging.ts"
 						}
 					]
 				},
@@ -191,13 +184,44 @@
 					"sourceMap": false,
 					"namedChunks": false,
 					"extractLicenses": true,
-					"outputPath": "dist/production/server"
-				},
-				"dev": {
+					"outputPath": "dist/production/server",
 					"fileReplacements": [
 						{
 							"replace": "apps/web/src/environments/environment.ts",
-							"with": "apps/web/src/environments/environment.dev.ts"
+							"with": "apps/web/src/environments/environment.production.ts"
+						},
+						{
+							"replace": "apps/web/src/environments/hash.ts",
+							"with": "apps/web/src/environments/hash.production.ts"
+						}
+					]
+				},
+				"staging": {
+					"optimization": false,
+					"sourceMap": false,
+					"namedChunks": false,
+					"extractLicenses": true,
+					"outputPath": "dist/production/server",
+					"fileReplacements": [
+						{
+							"replace": "apps/web/src/environments/environment.ts",
+							"with": "apps/web/src/environments/environment.staging.ts"
+						},
+						{
+							"replace": "apps/web/src/environments/hash.ts",
+							"with": "apps/web/src/environments/hash.staging.ts"
+						}
+					]
+				},
+				"develop": {
+					"fileReplacements": [
+						{
+							"replace": "apps/web/src/environments/environment.ts",
+							"with": "apps/web/src/environments/environment.develop.ts"
+						},
+						{
+							"replace": "apps/web/src/environments/hash.ts",
+							"with": "apps/web/src/environments/hash.develop.ts"
 						}
 					]
 				}
@@ -215,14 +239,18 @@
 					"browserTarget": "web:build:production",
 					"serverTarget": "web:server:production"
 				},
-				"dev": {
-					"browserTarget": "web:build:dev",
-					"serverTarget": "web:server:dev"
+				"staging": {
+					"browserTarget": "web:build:staging",
+					"serverTarget": "web:server:staging"
+				},
+				"develop": {
+					"browserTarget": "web:build:develop",
+					"serverTarget": "web:server:develop"
 				}
 			}
 		},
 		"serve": {
-			"executor": "@angular-builders/custom-webpack:dev-server",
+			"executor": "@angular-builders/custom-webpack:develop-server",
 			"options": {
 				"buildTarget": "web:build",
 				"host": "0.0.0.0",
@@ -230,25 +258,22 @@
 				"open": true
 			},
 			"configurations": {
-				"local": {
-					"buildTarget": "web:build:local"
-				},
 				"aot": {
 					"buildTarget": "web:build:aot"
 				},
 				"production": {
 					"buildTarget": "web:build:production"
 				},
-				"dev": {
-					"buildTarget": "web:build:dev"
+				"develop": {
+					"buildTarget": "web:build:develop"
 				},
-				"testing": {
-					"buildTarget": "web:build:testing"
+				"staging": {
+					"buildTarget": "web:build:staging"
 				}
 			}
 		},
 		"serve-ssr": {
-			"executor": "@angular-devkit/build-angular:ssr-dev-server",
+			"executor": "@angular-devkit/build-angular:ssr-develop-server",
 			"options": {
 				"browserTarget": "web:build",
 				"serverTarget": "web:server",
@@ -261,12 +286,15 @@
 					"browserTarget": "web:build:production",
 					"serverTarget": "web:server:production"
 				},
-				"dev": {
-					"browserTarget": "web:build:dev",
-					"serverTarget": "web:server:dev"
+				"staging": {
+					"browserTarget": "web:build:staging",
+					"serverTarget": "web:server:staging"
+				},
+				"develop": {
+					"browserTarget": "web:build:develop",
+					"serverTarget": "web:server:develop"
 				}
-			},
-			"defaultConfiguration": "dev"
+			}
 		},
 		"extract-i18n": {
 			"executor": "@angular-builders:extract-i18n",
