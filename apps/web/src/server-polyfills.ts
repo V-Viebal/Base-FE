@@ -5,7 +5,11 @@ const win = domino.createWindow(template);
 
 (global as any).window = win;
 (global as any).document = win.document;
-(global as any).navigator = win.navigator;
+Object.defineProperty(global, 'navigator', {
+	value: win.navigator,
+	writable: true,
+	configurable: true,
+});
 
 // Optional: polyfill self and customElements if needed
 if (typeof self === 'undefined') {
