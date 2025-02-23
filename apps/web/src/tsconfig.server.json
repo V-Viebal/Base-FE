@@ -1,11 +1,27 @@
 {
-	"extends": "./tsconfig.app.json",
+	"extends": "../tsconfig.json",
 	"compilerOptions": {
 		"outDir": "./out-tsc/server",
 		"types": [
 			"node"
 		]
 	},
+	"angularCompilerOptions": {
+		"allowEmptyCodegenFiles": true,
+		"fullTemplateTypeCheck": true,
+		"ivyTemplateTypeCheck": true,
+		"strictInputTypes": false,
+		"strictInputAccessModifiers": true,
+		"strictNullInputTypes": true,
+		"strictAttributeTypes": true,
+		"strictSafeNavigationTypes": true,
+		"strictDomLocalRefTypes": true,
+		"strictOutputEventTypes": true,
+		"strictDomEventTypes": true,
+		"strictContextGenerics": true,
+		"strictLiteralTypes": true
+	},
+	"exclude": ["test.ts", "**/*.spec.ts", "**/*.ts"],
 	"files": [
 		"typings.d.ts",
 		"types.d.ts",
