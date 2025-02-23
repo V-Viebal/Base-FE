@@ -9,14 +9,13 @@ COPY package*.json ./
 
 # Install dependencies in production mode for faster build
 RUN npm ci
+RUN npm i -g nx@18.3.2
 
 # Copy remaining files
 COPY . .
 
 # Build the application (SSR and Prerender)
-RUN nx run build:ssr:production && nx run prerender:production
-
-
+RUN npm run build-ssr-production && nx run prerender-production
 
 # Stage 2: Production Stage for Unified Node.js and Nginx Container
 FROM alpine:3.18
