@@ -2,7 +2,7 @@ name: CICD
 
 on:
   push:
-    branches: [ "main", "dev", "staging" ]
+    branches: [ "production", "develop", "staging" ]
     paths-ignore:
       - .gitignore
       - CODE_OF_CONDUCT.md
@@ -22,11 +22,11 @@ jobs:
       - name: Set environment
         id: set-env-name
         run: |
-          if [[ "${GITHUB_REF##*/}" == "main" ]]; then
+          if [[ "${GITHUB_REF##*/}" == "production" ]]; then
             ENV_NAME="prod"
           elif [[ "${GITHUB_REF##*/}" == "staging" ]]; then
             ENV_NAME="stg"
-          elif [[ "${GITHUB_REF##*/}" == "dev" ]]; then
+          elif [[ "${GITHUB_REF##*/}" == "develop" ]]; then
             ENV_NAME="dev"
           fi
           echo "environment=${ENV_NAME}" >> $GITHUB_OUTPUT
