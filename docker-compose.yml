@@ -23,6 +23,8 @@ services:
           labels:
             - "traefik.enable=true"
             - "traefik.docker.network=public"
+            - "traefik.http.middlewares.https-redirect.redirectscheme.scheme=https"
+            - "traefik.http.middlewares.https-redirect.redirectscheme.permanent=true"
             - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`${SERVICE_DOMAIN}`)"
             - "traefik.http.routers.${SERVICE_NAME}.entrypoints=web"
             - "traefik.http.routers.${SERVICE_NAME}.middlewares=https-redirect"
