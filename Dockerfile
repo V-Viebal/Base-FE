@@ -8,13 +8,14 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies in production mode for faster build
-RUN npm ci
+RUN npm i
 RUN npm i -g nx@18.3.2
 
 # Copy remaining files
 COPY . .
 
 # Build the application (SSR and Prerender)
+RUN nx run angular-core:build
 RUN nx run build-ssr-production && nx run prerender-production
 
 # Stage 2: Production Stage for Unified Node.js and Nginx Container
