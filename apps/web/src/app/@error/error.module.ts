@@ -27,8 +27,10 @@ import {
 
 		I18nLazyTranslateModule.forChild({
 			prefix: 'ERROR',
-			loader: ( lang: string ) =>
-				import( `./i18n/${lang}.json` ),
+			loader: ( lang: string ) => {
+				const translations = require(`./i18n/${lang}.json`);
+				return Promise.resolve( translations );
+			}
 		}),
 
 		CUBButtonModule,

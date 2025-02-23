@@ -1,0 +1,15 @@
+{
+	"extends": "./tsconfig.app.json",
+	"compilerOptions": {
+		"outDir": "./out-tsc/server",
+		"types": [
+			"node"
+		]
+	},
+	"files": [
+		"typings.d.ts",
+		"types.d.ts",
+		"main.server.ts",
+		"../server.ts"
+	],
+}

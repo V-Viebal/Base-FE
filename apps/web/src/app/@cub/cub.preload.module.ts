@@ -55,9 +55,6 @@ import {
 	CUBDropdownModule
 } from './material/dropdown';
 import {
-	CUBEditorModule
-} from './material/editor';
-import {
 	CUBEmojiPickerModule
 } from './material/emoji-picker';
 import {
@@ -154,7 +151,6 @@ import {
 		CUBDividerModule,
 		CUBDrawerModule,
 		CUBDropdownModule,
-		CUBEditorModule,
 		CUBEmojiPickerModule,
 		CUBExpansionPanelModule,
 		CUBFilePickerModule,

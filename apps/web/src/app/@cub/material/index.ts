@@ -14,7 +14,6 @@ export * from './dialog';
 export * from './divider';
 export * from './drawer';
 export * from './dropdown';
-export * from './editor';
 export * from './emoji-picker';
 export * from './expansion-panel';
 export * from './file-picker';

@@ -3,7 +3,8 @@ import {
 } from '@angular/core';
 import {
 	RouterModule,
-	Routes
+	Routes,
+	withInMemoryScrolling
 } from '@angular/router';
 
 import {
@@ -17,9 +18,6 @@ import {
 import {
 	CustomPreloadingStrategy
 } from './custom-preloading-strategy';
-import {
-	CONSTANT as PANEL_CONSTANT
-} from './main/panel/resources';
 
 const routeData: IRouteData = { cache: false };
 const routes: Routes = [
@@ -28,13 +26,6 @@ const routes: Routes = [
 		loadChildren: () =>
 			import( './main/base/base.module' )
 			.then( ( m: any ) => m.BaseModule ),
-		data		: { preload: true, ...routeData },
-	},
-	{
-		path		: PANEL_CONSTANT.PATH.MAIN,
-		loadChildren: () =>
-			import( './main/panel/panel.module' )
-			.then( ( m: any ) => m.PanelModule ),
 		data		: { preload: true, ...routeData },
 	},
 	{
@@ -52,6 +43,12 @@ const routes: Routes = [
 				preloadingStrategy: CustomPreloadingStrategy,
 				scrollPositionRestoration: 'enabled',
 				enableViewTransitions: true,
+				initialNavigation: 'enabledBlocking',
+				useHash: false,
+				...withInMemoryScrolling({
+					scrollPositionRestoration: 'enabled',
+					anchorScrolling: 'enabled',
+				}),
 			}
 		),
 	],

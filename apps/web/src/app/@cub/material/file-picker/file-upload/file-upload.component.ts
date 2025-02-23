@@ -37,9 +37,9 @@ import {
 })
 export class CUBFileUploadComponent {
 
-	@Input() protected files: CUBFile[];
+	@Input() public files: CUBFile[];
 
-	@Output() protected filesChange: EventEmitter<CUBFile[]>
+	@Output() public filesChange: EventEmitter<CUBFile[]>
 		= new EventEmitter<CUBFile[]>();
 
 	protected canScrollingLeft: boolean;
