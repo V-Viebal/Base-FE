@@ -152,7 +152,7 @@
 					"extractLicenses": true,
 					"buildOptimizer": true,
 					"serviceWorker": true,
-					"outputPath": "dist/production",
+					"outputPath": "dist/production/browser",
 					"fileReplacements": [
 						{
 							"replace": "apps/web/src/environments/environment.ts",

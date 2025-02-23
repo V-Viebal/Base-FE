@@ -13,7 +13,7 @@
 		"prod": "nx serve --host localhost --configuration=production",
 		"aot": "nx serve --host localhost --configuration=aot",
 		"dev": "nx serve --host localhost --configuration=dev",
-		"build": "nx build --configuration=local --output-path ./dist/web",
+		"build": "nx build --configuration=local --output-path ../../dist/web",
 		"build-prod": "nx build --configuration=production && node compress.js",
 		"build-ssr": "nx build --configuration=dev && nx server --configuration=dev",
 		"build-ssr-production": "nx build --configuration production && nx server --configuration=production",
