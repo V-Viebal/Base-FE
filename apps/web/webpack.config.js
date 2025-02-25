@@ -1,4 +1,5 @@
 const path = require('path');
+const dotenv = require('dotenv-webpack');
 
 module.exports = {
 	// Default target is "web", so no need to set it explicitly.

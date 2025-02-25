@@ -250,7 +250,7 @@
 			}
 		},
 		"serve": {
-			"executor": "@angular-builders/custom-webpack:develop-server",
+			"executor": "@angular-builders/custom-webpack:dev-server",
 			"options": {
 				"buildTarget": "web:build",
 				"host": "0.0.0.0",
@@ -273,11 +273,11 @@
 			}
 		},
 		"serve-ssr": {
-			"executor": "@angular-devkit/build-angular:ssr-develop-server",
+			"executor": "@angular-devkit/build-angular:ssr-dev-server",
 			"options": {
 				"browserTarget": "web:build",
 				"serverTarget": "web:server",
-				"host": "0.0.0.0",
+				"host": "localhost",
 				"port": 8080,
 				"open": true
 			},

@@ -14,7 +14,7 @@ RUN npm i -g nx@18.3.2
 
 # Build the application (SSR and Prerender)
 RUN nx run angular-core:build
-RUN nx run build-ssr-production && nx run prerender-production
+RUN nx run build-prod && nx run prerender-prod
 
 # Stage 2: Production Stage for Unified Node.js and Nginx Container
 FROM alpine:3.18

@@ -1,5 +1,23 @@
 @import 'src/scss/partials/variable';
 
+#backtop {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	z-index: 100;
+	transition: opacity 0.3s ease-in-out;
+	opacity: 0;
+	visibility: hidden;
+}
+
+#backtop svg {
+	fill: var(--c-text)
+}
+
+#backtop:hover svg {
+	fill: var(--c-accent)
+}
+
 :host {
 	display: flex;
 	flex-direction: column;
