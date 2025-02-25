@@ -3,11 +3,12 @@
 		.max-w-6xl.mx-auto.px-4(class='sm:px-6')
 			.flex.items-center.justify-between.gap-3.h-56.rounded-2xl.px-3.backdrop-blur-sm.bg-white.bg-opacity-80
 				div
-					a.block(href='index.html' rel='home')
+					a.block(href='index.html' rel='home' aria-label="Viebal")
 						cub-image(
 							noLazy,
 							width='28px',
 							height='28px',
+							alt='Viebal',
 							[src]='"/assets/images/logos/logo.svg"')
 				.inline-flex.items-center
 					nav.hidden(class='sm:flex sm:grow')
@@ -22,20 +23,7 @@
 							span.transition-transform.ml-1(class='text-white/60 group-hover:translate-x-0.5')
 								svg.fill-current(xmlns='http://www.w3.org/2000/svg' width='11' height='11')
 									path(d='M5.977 10.368 4.953 9.354 8.02 6.286H.568V4.805H8.02L4.953 1.742 5.977.723 10.8 5.546z')
-					.flex.ml-2(class='sm:hidden')
-						button#header-nav-toggle.group.inline-flex.w-32.h-32.text-gray-800.text-center.items-center.justify-center.transition(aria-controls='header-nav' aria-expanded='false')
-							span.sr-only Menu
-							svg.fill-current.pointer-events-none(width='16' height='16' viewbox='0 0 16 16' xmlns='http://www.w3.org/2000/svg')
-								rect.origin-center.transition-all.duration-300(class='ease-[cubic-bezier(.5,.85,.25,1.1)] -translate-y-[5px] translate-x-[7px] group-[[aria-expanded=true]]:rotate-[315deg] group-[[aria-expanded=true]]:translate-y-0 group-[[aria-expanded=true]]:translate-x-0' y='7' width='9' height='2' rx='1')
-								rect.origin-center.transition-all.duration-300(class='group-[[aria-expanded=true]]:rotate-45 ease-[cubic-bezier(.5,.85,.25,1.8)]' y='7' width='16' height='2' rx='1')
-								rect.origin-center.transition-all.duration-300(class='ease-[cubic-bezier(.5,.85,.25,1.1)] translate-y-[5px] group-[[aria-expanded=true]]:rotate-[135deg] group-[[aria-expanded=true]]:translate-y-0' y='7' width='9' height='2' rx='1')
-						nav#header-nav.grid.rounded-xl.absolute.inset-x-0.top-full.mt-1.z-50.transition-all.duration-300(class='grid-rows-[0fr] [&.menu-is-open]:grid-rows-[1fr] [&.menu-is-open]:visible [&.menu-is-open]:bg-white [&.menu-is-open]:shadow-lg shadow-black/[.04] [&>div]:opacity-0 [&.menu-is-open>div]:opacity-100')
-							.overflow-hidden.transition-opacity.duration-300
-								ul.text-sm.px-3.divide-y.divide-gray-100(class='py-1.5')
-									li
-										a.flex.text-gray-800.py-2.px-2(href='docs/index.htm' class='hover:underline') Documentation
-									li
-										a.flex.text-gray-800.py-2.px-2(class='hover:underline' href='login/index.htm') Login
+
 	main.grow
 		.pb-12
 			section.relative.z-10(class='before:absolute before:inset-0 before:pointer-events-none before:-z-10 before:bg-gray-100 after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-gray-900/10 after:to-transparent')
@@ -56,15 +44,15 @@
 						.flex.flex-col(class='max-w-[620px]')
 							h1.h1.mb-5 Hiện Thực Hoá Ý Tưởng tuyệt vời của bạn
 							p.text-lg.text-gray-500
-								| Landing pages, websites, porfolio, web apps và dashboards được xây dựng với &nbsp;
+								| Landing pages, websites, porfolio, web apps và dashboards được xây dựng với&nbsp;
 								strong.font-normal.text-gray-900.whitespace-nowrap Giao Diện Hiện Đại
-								|  và hỗ trợ tất cả công nghệ mới nhất thuộc nhiều nhóm ngành &nbsp;
+								| và hỗ trợ tất cả công nghệ mới nhất thuộc nhiều nhóm ngành&nbsp;
 								strong.font-normal.text-gray-900 Thương Mại Điện Tử
 								| ,&nbsp;
 								strong.font-normal.text-gray-900 Mạng Xã Hội
 								| ,&nbsp;
 								strong.font-normal.text-gray-900 Quản Lý Doanh Nghiệp
-								| , và &nbsp;
+								| , và&nbsp;
 								strong.font-normal.text-gray-900 Các Trang Dịch Vụ Giải Trí
 							.-order-1
 								.inline-flex.mb-6
@@ -75,7 +63,7 @@
 											img.rounded-full.border-2.border-white.box-content(decoding='async' fetchpriority='high' src='assets/base/images/dev-03.jpg' width='20' height='20' alt='Ryan Chew')
 											img.rounded-full.border-2.border-white.box-content(decoding='async' fetchpriority='high' src='assets/base/images/dev-04.jpg' width='20' height='20' alt='Adrian')
 										span
-											| Được tin tưởng bởi &nbsp;
+											| Được tin tưởng bởi&nbsp;
 											strong.font-normal.text-gray-900 100+
 											|  khách hàng.
 							.mt-8
@@ -913,12 +901,13 @@
 			.pb-12
 				.grid.grid-cols-2.gap-y-12.gap-x-6(class='sm:grid-cols-3 lg:grid-cols-6')
 					div
-						a.inline-block.mb-2(href='index.htm' rel='home')
+						a.inline-block.mb-2(href='index.htm' rel='home' aria-label="Viebal")
 							span.sr-only Viebal
 							cub-image(
 								noLazy,
 								width='28px',
 								height='28px',
+								alt='Viebal',
 								[src]='"/assets/images/logos/logo.svg"')
 						.text-gray-500(class='text-[13px]')
 							| &copy;

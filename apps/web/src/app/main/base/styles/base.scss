@@ -43,9 +43,6 @@
 		-moz-tab-size: 4;
 		-o-tab-size: 4;
 		tab-size: 4;
-		font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-			Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
-			Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
 		font-feature-settings: normal;
 		font-variation-settings: normal;
 		font-size: 16px;
@@ -2330,13 +2327,11 @@
 		background-image: linear-gradient(to right, var(--tw-gradient-stops));
 	}
 	.bg-gradient {
-		--tw-gradient-from: #fb5f5f40; // Corresponds to from-red-500-25
-		--tw-gradient-to: #e5e7eb00; // Corresponds to to-gray-200-0
-		--tw-gradient-to-position: 50%; // Corresponds to to-50
-
+		--tw-gradient-from: #ef232340;
+		--tw-gradient-to: #ffffff00;
+		--tw-gradient-to-position: 50%;
 		--tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-
-		background: linear-gradient(145deg, var(--tw-gradient-stops));
+		background: linear-gradient(240deg, var(--tw-gradient-stops));
 	}
 	.from-gray-100-70 {
 		--tw-gradient-from: #f3f4f6b3 var(--tw-gradient-from-position);

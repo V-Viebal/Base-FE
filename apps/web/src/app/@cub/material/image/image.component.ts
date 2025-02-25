@@ -41,6 +41,7 @@ export class CUBImageComponent implements OnChanges {
 	@Input() @CoerceCssPixel() public height: string;
 	@Input() @CoerceCssPixel() public minHeight: string;
 	@Input() @CoerceCssPixel() public maxHeight: string;
+	@Input() public alt: string;
 	@Input() @CoerceBoolean() public noLazy: boolean;
 	@Input() public fitMode: CUBImageFitMode;
 
