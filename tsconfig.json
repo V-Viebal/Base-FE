@@ -18,8 +18,7 @@
 		"typeRoots": ["node_modules/@types"],
 		"target": "es2022",
 		"module": "commonjs",
-		"lib": ["es2022", "dom", "dom.iterable", "webworker"]
+		"lib": ["es2022", "dom", "dom.iterable"]
 	},
-	"include": ["apps/web/src/**/*.ts"],
 	"exclude": ["node_modules", "tmp", "dist"]
 }

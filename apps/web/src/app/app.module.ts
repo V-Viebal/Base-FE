@@ -18,10 +18,6 @@ import {
 } from '@angular/common/http';
 
 import {
-	ENVIRONMENT
-} from '@environments/environment';
-
-import {
 	CONSTANT,
 	CoreModule,
 	I18nLazyTranslateModule,
@@ -61,7 +57,7 @@ import {
 const ServiceWorkerModule: ModuleWithProviders<SWModule>
 	= SWModule.register(
 		'ngsw-worker.js',
-		{ enabled: ENVIRONMENT.PRODUCTION }
+		{ enabled:  process.env.NODE_ENV === 'production'  }
 	);
 
 @NgModule({

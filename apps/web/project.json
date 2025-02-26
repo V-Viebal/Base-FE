@@ -15,6 +15,7 @@
 				"outputPath": "dist/web/browser",
 				"index": "apps/web/src/index.html",
 				"main": "apps/web/src/main.ts",
+				"polyfills": "apps/web/src/polyfills.ts",
 				"tsConfig": "apps/web/tsconfig.json",
 				"webWorkerTsConfig": "apps/web/src/tsconfig.worker.json",
 				"ngswConfigPath": "apps/web/ngsw-config.json",
@@ -96,7 +97,8 @@
 					"editorjs-alert",
 					"leader-line-new",
 					"sweetalert2",
-					"core-js"
+					"core-js",
+					"zone.js"
 				]
 			},
 			"configurations": {

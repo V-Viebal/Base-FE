@@ -1,9 +1,8 @@
 import './server-polyfills';
 
 import { enableProdMode } from '@angular/core';
-import { ENVIRONMENT } from './environments/environment';
 
-if (ENVIRONMENT.PRODUCTION) {
+if (process.env.NODE_ENV === 'production') {
 	enableProdMode();
 }
 
