@@ -15,8 +15,7 @@ export function app(): express.Express {
 		process.cwd(),
 		isProduction ? '/app/dist/production/browser' : '../../dist/web/browser'
 	);
-	const indexHtml =
-		join(distFolder, 'index.html');
+	const indexHtml = join(distFolder, 'index.html');
 
 	const commonEngine = new CommonEngine();
 
@@ -71,14 +70,12 @@ export function app(): express.Express {
 }
 
 function run(): void {
-	const port = 4000;
+	const port = process.env.PORT || 4000; // Allow port to be configured via env
+
 	const server = app();
 
 	server
 		.listen(port, () => {
-			console.log(
-				`Node Express server listening on http://localhost:${port}`
-			);
 		})
 		.on('error', (err: NodeJS.ErrnoException) => {
 			if (err.code === 'EADDRINUSE') {
@@ -92,13 +89,7 @@ function run(): void {
 }
 
 // Run only if executed directly (not imported)
-declare const __non_webpack_require__: NodeRequire;
-const mainModule = __non_webpack_require__?.main;
-const moduleFilename = mainModule?.filename || '';
-if (
-	moduleFilename === __filename ||
-	(moduleFilename && moduleFilename.includes('iisnode'))
-) {
+if (require.main === module) {
 	run();
 }
 
