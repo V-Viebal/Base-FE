@@ -88,9 +88,15 @@ function run(): void {
 		});
 }
 
-// Run only if executed directly (not imported)
-if (require.main === module) {
+// Ensure the server is run only when this file is executed directly.
+declare const __non_webpack_require__: NodeRequire;
+const mainModule = __non_webpack_require__.main;
+const moduleFilename = mainModule ? mainModule.filename : '';
+if (
+	moduleFilename === __filename ||
+	(moduleFilename && moduleFilename.indexOf('iisnode') !== -1)
+) {
 	run();
 }
 
-export * from './src/main.server';
+export default AppServerModule;
