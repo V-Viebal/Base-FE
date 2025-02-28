@@ -1,4 +1,4 @@
-import './server-polyfills';
+import './polyfills.server';
 
 import { enableProdMode } from '@angular/core';
 

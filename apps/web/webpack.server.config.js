@@ -1,6 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
-const dotenv = require('dotenv-webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
 	target: 'node',
@@ -20,7 +19,7 @@ module.exports = {
 					{
 						loader: path.resolve(
 							__dirname,
-							'./prepend-mixin-loader.js'
+							'prepend-mixin-loader.js'
 						),
 					},
 				],
@@ -28,16 +27,16 @@ module.exports = {
 			{
 				test: /\.(png|jpg|jpeg)/,
 				type: 'asset/resource',
+				generator: {
+					emit: false, // Don’t emit assets on server
+				},
 			},
 		],
 	},
 	plugins: [
-		new dotenv({
+		new Dotenv({
 			path: path.resolve(__dirname, '.env'),
 			systemvars: true,
 		}),
-		new webpack.DefinePlugin({
-			'process.env': JSON.stringify(process.env)
-		})
 	],
 };

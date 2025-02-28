@@ -1,9 +1,12 @@
 const path = require('path');
-const webpack = require('webpack');
-const dotenv = require('dotenv-webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-	// Default target is "web", so no need to set it explicitly.
+	target: 'web',
+	entry: {
+		main: path.resolve(__dirname, 'src/main.ts'),
+		polyfills: path.resolve(__dirname, 'src/polyfills.ts'),
+	},
 	module: {
 		rules: [
 			{
@@ -20,7 +23,7 @@ module.exports = {
 					{
 						loader: path.resolve(
 							__dirname,
-							'./prepend-mixin-loader.js'
+							'prepend-mixin-loader.js'
 						),
 					},
 				],
@@ -32,12 +35,9 @@ module.exports = {
 		],
 	},
 	plugins: [
-		new dotenv({
+		new Dotenv({
 			path: path.resolve(__dirname, '.env'),
 			systemvars: true,
 		}),
-		new webpack.DefinePlugin({
-			'process.env': JSON.stringify(process.env)
-		})
 	],
 };

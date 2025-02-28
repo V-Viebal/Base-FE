@@ -1,63 +1,55 @@
-/***************************************************************************************************
- * Server-Side Polyfills for Angular SSR
- * These polyfills create a browser-like environment on the server for Angular SSR and prerendering.
- * Uses 'domino' to simulate DOM APIs in Node.js.
- */
+(function() {
+	// Browser detection logic for old browsers
+	function detectOldBrowser() {
+		const ua: string
+			= window.navigator.userAgent;
 
-import domino from 'domino';
+		// Detect Internet Explorer 11 or below
+		const isIE: boolean
+			= ua.indexOf( 'MSIE ' ) > -1 || ua.indexOf( 'Trident/' ) > -1;
 
-// Create a minimal DOM environment using domino
-const template = '<!doctype html><html><head></head><body></body></html>';
-const win = domino.createWindow(template);
+		// Detect old Safari (Safari 10 or below)
+		const isOldSafari = () => {
+			// Detect Safari
+			const isSafari: boolean
+				= /^((?!chrome|android).)*safari/i.test( ua );
 
-// Set up global objects for Angular SSR
-(global as any).window = win;
-(global as any).document = win.document;
-(global as any).navigator = win.navigator;
+			// Detect absence of modern APIs (e.g., fetch or Promises, or WebAssembly)
+			const isMissingModernFeatures: boolean
+				= !( 'fetch' in window )
+				|| !( 'Promise' in window )
+				|| !( 'WebAssembly' in window );
 
-// Polyfill `self` for compatibility with certain libraries or Angular internals
-if (typeof self === 'undefined') {
-	(global as any).self = global;
-}
+			// Safari user agent should have Version/<version> Safari
+			const safariVersionMatch: RegExpMatchArray
+				= ua.match(/Version\/(\d+)\./);
+			const safariVersion: number
+				= safariVersionMatch
+					? parseInt( safariVersionMatch[ 1 ], 10 )
+					: 0;
 
-// Polyfill `customElements` as a no-op if not available
-if (typeof customElements === 'undefined') {
-	(global as any).customElements = {
-		define: () => {},
-		get: () => undefined,
-		whenDefined: () => Promise.resolve(),
-	};
-}
+			return isSafari
+				&& ( safariVersion <= 10 || isMissingModernFeatures );
+		};
 
-// Polyfill `localStorage` as a simple in-memory store (optional, only if your app uses it)
-if (typeof localStorage === 'undefined') {
-	let storage: { [key: string]: string } = {};
-	(global as any).localStorage = {
-		getItem: (key: string) => storage[key] || null,
-		setItem: (key: string, value: string) => {
-			storage[key] = value;
-		},
-		removeItem: (key: string) => {
-			delete storage[key];
-		},
-		clear: () => {
-			storage = {};
-		},
-	};
-}
+		return isIE || isOldSafari();
+	}
 
-// Polyfill `MediaSession` to prevent errors during SSR (optional, only if your app uses it)
-if (!navigator.mediaSession) {
-	(navigator as any).mediaSession = {
-		setActionHandler: (action: string) => {
-			console.warn(
-				`MediaSession.setActionHandler for "${action}" is not implemented in SSR.`
-			);
-		},
-		clearActionHandler: (action: string) => {
-			console.warn(
-				`MediaSession.clearActionHandler for "${action}" is not implemented in SSR.`
-			);
-		},
-	};
-}
+	if ( detectOldBrowser() ) {
+		// Dynamically load necessary polyfills for old browsers
+		import( 'core-js/es/promise' ).then(() => console.log( 'Promise polyfill loaded.' ));
+		import( 'core-js/es/array' ).then(() => console.log( 'Array polyfill loaded.' ));
+	}
+})();
+
+/** Polyfills needed for evergreen browsers (Chrome, Firefox, Edge, Safari, etc.) **/
+import 'core-js/es/reflect'; // Necessary for Angular in modern browsers
+
+// Zone.js is required for Angular itself (always needed)
+import 'zone.js'; // Included with Angular CLI
+
+// Import IntersectionObserver polyfill (useful for lazy loading or other features)
+import 'intersection-observer';
+
+// Add global to window, assigning the value of window itself for compatibility with certain libraries
+( window as any ).global = window;

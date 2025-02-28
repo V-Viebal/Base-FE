@@ -8,8 +8,6 @@
 		"typings.d.ts",
 		"types.d.ts",
 		"main.server.ts",
-		"app/app.server.module.ts",
-		"server-polyfills.ts",
 		"../server.ts",
 	]
 }

@@ -1,24 +1,22 @@
-import 'zone.js/node';
+import 'zone.js/node'; // Required for Angular SSR
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr';
 import express, { RequestHandler } from 'express';
-import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { AppServerModule } from './src/main.server';
 import compression from 'compression';
 
-// The Express app is exported so that it can be used by serverless Functions.
+import './src/polyfills.server';
+
 export function app(): express.Express {
 	const server = express();
+	const isProduction = process.env.NODE_ENV === 'production';
 	const distFolder = join(
 		process.cwd(),
-		process.env.NODE_ENV === 'production'
-			? '/app/dist/production/browser'
-			: '../../dist/web/browser'
+		isProduction ? '/app/dist/production/browser' : '../../dist/web/browser'
 	);
-	const indexHtml = existsSync(join(distFolder, 'index.original.html'))
-		? join(distFolder, 'index.original.html')
-		: join(distFolder, 'index.html');
+	const indexHtml =
+		join(distFolder, 'index.html');
 
 	const commonEngine = new CommonEngine();
 
@@ -28,37 +26,45 @@ export function app(): express.Express {
 	// Use Gzip compression for all HTTP responses
 	server.use(compression() as RequestHandler);
 
-	// Serve static files from /browser
+	// Serve static files from /browser with caching
 	server.get('*.*', express.static(distFolder, { maxAge: '1y' }));
 
 	// Define prerendered static routes
-	const prerenderedRoutes = [''];
+	const prerenderedRoutes = ['']; // Add more routes like '/about' if needed
 	prerenderedRoutes.forEach((route) => {
 		server.get(route, (_req, res) => {
-			res.sendFile(join(distFolder, 'index.html'));
+			res.sendFile(join(distFolder, 'index.html'), (err) => {
+				if (err) {
+					console.error(
+						`Failed to send file for route ${route}:`,
+						err
+					);
+					res.status(500).end();
+				}
+			});
 		});
 	});
 
-	// Use SSR for other routes
 	server.get('*', (req, res, next) => {
 		const { protocol, headers, originalUrl, baseUrl } = req;
-		const host = headers.host;
+		const host = headers.host || 'localhost';
 		const fullUrl = `${protocol}://${host}${originalUrl}`;
 
 		commonEngine
-		.render({
-			bootstrap: AppServerModule,
-			documentFilePath: indexHtml,
-			url: fullUrl,
-			publicPath: distFolder,
-			providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
-		})
-		.then((html) => res.send(html))
-		.catch((err) => {
-			console.error('SSR Rendering Error:', err);
-			res.status(500).send('Internal Server Error');
-			if (next) next(err); // Only call next if defined
-		});
+			.render({
+				bootstrap: AppServerModule,
+				documentFilePath: indexHtml,
+				url: fullUrl,
+				publicPath: distFolder,
+				providers: [
+					{ provide: APP_BASE_HREF, useValue: baseUrl || '/' },
+				],
+			})
+			.then((html) => res.send(html))
+			.catch((err) => {
+				console.error('SSR rendering error:', err);
+				next(err);
+			});
 	});
 
 	return server;
@@ -67,20 +73,33 @@ export function app(): express.Express {
 function run(): void {
 	const port = 4000;
 	const server = app();
-	server.listen(port, () => {
-		console.log(
-			`Node Express server listening on http://localhost:${port}`
-		);
-	});
+
+	server
+		.listen(port, () => {
+			console.log(
+				`Node Express server listening on http://localhost:${port}`
+			);
+		})
+		.on('error', (err: NodeJS.ErrnoException) => {
+			if (err.code === 'EADDRINUSE') {
+				console.error(
+					`Port ${port} is already in use. Try a different port.`
+				);
+			} else {
+				console.error('Server startup error:', err);
+			}
+		});
 }
 
-// Ensure the server is run only when this file is executed directly.
+// Run only if executed directly (not imported)
 declare const __non_webpack_require__: NodeRequire;
-const mainModule = __non_webpack_require__.main;
-const moduleFilename = mainModule ? mainModule.filename : '';
+const mainModule = __non_webpack_require__?.main;
+const moduleFilename = mainModule?.filename || '';
 if (
 	moduleFilename === __filename ||
-	(moduleFilename && moduleFilename.indexOf('iisnode') !== -1)
+	(moduleFilename && moduleFilename.includes('iisnode'))
 ) {
 	run();
 }
+
+export * from './src/main.server';
