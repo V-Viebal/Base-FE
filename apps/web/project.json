@@ -137,7 +137,7 @@
 				"customWebpackConfig": {
 					"path": "apps/web/webpack.server.config.js"
 				},
-				"main": "apps/web/server.ts",
+				"main": "apps/web/src/main.server.ts",
 				"tsConfig": "apps/web/src/tsconfig.server.json",
 				"optimization": false,
 				"sourceMap": true,

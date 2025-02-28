@@ -2,7 +2,6 @@ const path = require('path');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-	target: 'web',
 	entry: {
 		main: path.resolve(__dirname, 'src/main.ts'),
 		polyfills: path.resolve(__dirname, 'src/polyfills.ts'),
