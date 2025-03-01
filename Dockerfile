@@ -42,7 +42,7 @@ RUN npm i --only=production && npm cache clean --force
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # Expose necessary ports
-EXPOSE 80 4000
+EXPOSE 80
 
 # Run both Nginx and Node.js server
 CMD ["/bin/sh", "-c", "nginx && node /app/dist/production/server/main.js"]

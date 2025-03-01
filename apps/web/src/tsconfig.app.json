@@ -1,4 +1,4 @@
 {
 	"extends": "../tsconfig.json",
-	"files": ["main.ts", "typings.d.ts", "types.d.ts"]
+	"exclude": ["main.server.ts"],
 }

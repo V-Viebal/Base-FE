@@ -1,7 +1,6 @@
 {
-	"extends": "../tsconfig.json",
+	"extends": "./tsconfig.app.json",
 	"compilerOptions": {
 		"lib": [ "es2022", "dom", "dom.iterable", "webworker" ]
 	},
-	"include": ["**/*.worker.ts", "**/*.d.ts"]
 }

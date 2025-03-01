@@ -12,9 +12,7 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 		ServerModule,
 		CommonModule,
 	],
-	providers: [provideHttpClient(withFetch())],
-	bootstrap: [AppComponent],
+	providers: [ provideHttpClient( withFetch() ) ],
+	bootstrap: [ AppComponent ],
 })
 export class AppServerModule {}
-
-export default AppServerModule;

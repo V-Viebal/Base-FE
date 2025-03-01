@@ -10,12 +10,13 @@
 			"outputs": ["{options.outputPath}"],
 			"options": {
 				"customWebpackConfig": {
-					"path": "apps/web/webpack.config.js"
+					"path": "apps/web/webpack.browser.config.js"
 				},
 				"outputPath": "dist/web/browser",
 				"index": "apps/web/src/index.html",
 				"main": "apps/web/src/main.ts",
-				"tsConfig": "apps/web/tsconfig.json",
+				"polyfills": "apps/web/src/polyfills.ts",
+				"tsConfig": "apps/web/src/tsconfig.app.json",
 				"webWorkerTsConfig": "apps/web/src/tsconfig.worker.json",
 				"ngswConfigPath": "apps/web/ngsw-config.json",
 				"outputHashing": "none",
@@ -114,7 +115,21 @@
 					"namedChunks": false,
 					"buildOptimizer": true,
 					"serviceWorker": true,
-					"outputPath": "dist/production/browser"
+					"outputPath": "dist/production/browser",
+					"fileReplacements": [
+						{
+							"replace": "apps/web/src/environments/environment.ts",
+							"with": "apps/web/src/environments/environment.staging.ts"
+						},
+						{
+							"replace": "apps/web/src/environments/hash.ts",
+							"with": "apps/web/src/environments/hash.staging.ts"
+						},
+						{
+							"replace": "apps/web/webpack.browser.config.js",
+							"with": "apps/web/webpack.browser.config.prod.js"
+						}
+					]
 				},
 				"production": {
 					"outputHashing": "all",
@@ -125,7 +140,21 @@
 					"extractLicenses": true,
 					"buildOptimizer": true,
 					"serviceWorker": true,
-					"outputPath": "dist/production/browser"
+					"outputPath": "dist/production/browser",
+					"fileReplacements": [
+						{
+							"replace": "apps/web/src/environments/environment.ts",
+							"with": "apps/web/src/environments/environment.production.ts"
+						},
+						{
+							"replace": "apps/web/src/environments/hash.ts",
+							"with": "apps/web/src/environments/hash.production.ts"
+						},
+						{
+							"replace": "apps/web/webpack.browser.config.js",
+							"with": "apps/web/webpack.browser.config.prod.js"
+						}
+					]
 				}
 			}
 		},
@@ -136,7 +165,7 @@
 				"customWebpackConfig": {
 					"path": "apps/web/webpack.server.config.js"
 				},
-				"main": "apps/web/server.ts",
+				"main": "apps/web/src/main.server.ts",
 				"stylePreprocessorOptions": {
 					"includePaths": ["apps/web"]
 				},
@@ -163,6 +192,10 @@
 						{
 							"replace": "apps/web/src/environments/hash.ts",
 							"with": "apps/web/src/environments/hash.production.ts"
+						},
+						{
+							"replace": "apps/web/webpack.server.config.js",
+							"with": "apps/web/webpack.server.config.prod.js"
 						}
 					]
 				},
@@ -180,6 +213,10 @@
 						{
 							"replace": "apps/web/src/environments/hash.ts",
 							"with": "apps/web/src/environments/hash.staging.ts"
+						},
+						{
+							"replace": "apps/web/webpack.server.config.js",
+							"with": "apps/web/webpack.server.config.prod.js"
 						}
 					]
 				},
@@ -202,7 +239,7 @@
 			"options": {
 				"browserTarget": "web:build",
 				"serverTarget": "web:server",
-				"host": "localhost",
+				"host": "0.0.0.0",
 				"port": 8888,
 				"open": true
 			},
