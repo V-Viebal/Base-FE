@@ -1,49 +1,44 @@
-import 'zone.js/node'; // Required for Angular SSR
+import 'zone.js/node';
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr';
 import express, { RequestHandler } from 'express';
-import { join } from 'node:path';
-import { AppServerModule } from './src/main.server';
+import { join } from 'path';
 import compression from 'compression';
 
-import './src/polyfills.server';
+// Import the Angular server module from main.server.ts
+import { AppServerModule } from './src/main.server';
+import './src/polyfills.server'; // if you have server-side polyfills
 
 export function app(): express.Express {
 	const server = express();
 	const isProduction = process.env.NODE_ENV === 'production';
-	const distFolder = join(
-		process.cwd(),
-		isProduction ? '/app/dist/production/browser' : '../../dist/web/browser'
-	);
-	const indexHtml = join(distFolder, 'index.html');
+	const distFolder
+		= join(
+			process.cwd(),
+			isProduction ? '/app/dist/production/browser' : '../../dist/web/browser'
+		);
+	// Adjust if your browser build goes elsewhere
 
+	const indexHtml = join(distFolder, 'index.html');
 	const commonEngine = new CommonEngine();
 
-	server.set('view engine', 'html');
-	server.set('views', distFolder);
-
-	// Use Gzip compression for all HTTP responses
+	// Set up Gzip compression
 	server.use(compression() as RequestHandler);
 
-	// Serve static files from /browser with caching
+	// Serve static files
 	server.get('*.*', express.static(distFolder, { maxAge: '1y' }));
 
-	// Define prerendered static routes
-	const prerenderedRoutes = ['']; // Add more routes like '/about' if needed
-	prerenderedRoutes.forEach((route) => {
-		server.get(route, (_req, res) => {
-			res.sendFile(join(distFolder, 'index.html'), (err) => {
-				if (err) {
-					console.error(
-						`Failed to send file for route ${route}:`,
-						err
-					);
-					res.status(500).end();
-				}
-			});
+	// Example prerendered route
+	server.get('/', (_req, res) => {
+		res.sendFile(indexHtml, (err) => {
+			if (err) {
+				console.error('Error sending file for "/" route:', err);
+				res.status(500).end();
+			}
 		});
 	});
 
+	// All other routes -> Angular SSR
 	server.get('*', (req, res, next) => {
 		const { protocol, headers, originalUrl, baseUrl } = req;
 		const host = headers.host || 'localhost';
@@ -70,33 +65,20 @@ export function app(): express.Express {
 }
 
 function run(): void {
-	const port = process.env.PORT || 4000; // Allow port to be configured via env
-
+	const port = process.env.PORT || 4000;
 	const server = app();
 
 	server
 		.listen(port, () => {
+			console.log(
+				`Node Express server listening on http://localhost:${port}`
+			);
 		})
-		.on('error', (err: NodeJS.ErrnoException) => {
-			if (err.code === 'EADDRINUSE') {
-				console.error(
-					`Port ${port} is already in use. Try a different port.`
-				);
-			} else {
-				console.error('Server startup error:', err);
-			}
+		.on('error', (err) => {
+			console.error('Server error:', err);
 		});
 }
 
-// Ensure the server is run only when this file is executed directly.
-declare const __non_webpack_require__: NodeRequire;
-const mainModule = __non_webpack_require__.main;
-const moduleFilename = mainModule ? mainModule.filename : '';
-if (
-	moduleFilename === __filename ||
-	(moduleFilename && moduleFilename.indexOf('iisnode') !== -1)
-) {
+if (require.main === module) {
 	run();
 }
-
-export default AppServerModule;

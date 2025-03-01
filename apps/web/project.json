@@ -137,21 +137,23 @@
 				"customWebpackConfig": {
 					"path": "apps/web/webpack.server.config.js"
 				},
-				"main": "apps/web/src/main.server.ts",
+				"main": "apps/web/server.ts",
+				"stylePreprocessorOptions": {
+					"includePaths": ["apps/web"]
+				},
 				"tsConfig": "apps/web/src/tsconfig.server.json",
 				"optimization": false,
 				"sourceMap": true,
 				"extractLicenses": false,
 				"statsJson": false,
 				"inlineStyleLanguage": "scss",
-				"stylePreprocessorOptions": {
-					"includePaths": ["apps/web"]
-				}
+				"assets": ["apps/web/src/assets"]
 			},
 			"configurations": {
 				"production": {
 					"optimization": false,
 					"sourceMap": false,
+					"namedChunks": false,
 					"extractLicenses": true,
 					"outputPath": "dist/production/server",
 					"fileReplacements": [
@@ -168,6 +170,7 @@
 				"staging": {
 					"optimization": false,
 					"sourceMap": false,
+					"namedChunks": false,
 					"extractLicenses": true,
 					"outputPath": "dist/production/server",
 					"fileReplacements": [
@@ -195,12 +198,14 @@
 				}
 			}
 		},
-		"prerender": {
-			"executor": "@angular-devkit/build-angular:prerender",
+		"serve-ssr": {
+			"executor": "@angular-devkit/build-angular:ssr-dev-server",
 			"options": {
-				"routes": ["/"],
 				"browserTarget": "web:build",
-				"serverTarget": "web:server"
+				"serverTarget": "web:server",
+				"host": "localhost",
+				"port": 8080,
+				"open": true
 			},
 			"configurations": {
 				"production": {
@@ -217,19 +222,14 @@
 				}
 			}
 		},
-		"serve-ssr": {
-			"executor": "@angular-devkit/build-angular:ssr-dev-server",
+		"prerender": {
+			"executor": "@angular-devkit/build-angular:prerender",
 			"options": {
+				"routes": ["/"],
 				"browserTarget": "web:build",
-				"serverTarget": "web:server",
-				"host": "0.0.0.0",
-				"port": 4000,
-				"open": true
+				"serverTarget": "web:server"
 			},
 			"configurations": {
-				"aot": {
-					"browserTarget": "web:build:aot"
-				},
 				"production": {
 					"browserTarget": "web:build:production",
 					"serverTarget": "web:server:production"
