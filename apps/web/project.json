@@ -45,19 +45,9 @@
 				],
 				"styles": [
 					"apps/web/src/scss/styles.scss",
-					"apps/web/src/scss/libs.scss",
-					"node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-					"node_modules/swiper/swiper-bundle.min.css",
-					"node_modules/swiper/modules/navigation.min.css",
-					"node_modules/swiper/modules/pagination.min.css",
-					"node_modules/primeicons/primeicons.css",
-					"node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-					"node_modules/primeng/resources/primeng.min.css"
+					"apps/web/src/scss/libs.scss"
 				],
-				"scripts": [
-					"node_modules/swiper/swiper-bundle.min.js",
-					"apps/web/preload-font.js"
-				],
+				"scripts": ["apps/web/preload-font.js"],
 				"stylePreprocessorOptions": {
 					"includePaths": ["apps/web"]
 				},
@@ -78,13 +68,14 @@
 					"@editorjs/embed",
 					"@editorjs/link",
 					"@editorjs/image",
-					"angular-svg-round-progressbar",
-					"cropperjs",
-					"crypto-js",
 					"editorjs-drag-drop",
 					"editorjs-text-alignment-blocktune",
 					"editorjs-text-color-plugin",
 					"editorjs-undo",
+					"editorjs-alert",
+					"angular-svg-round-progressbar",
+					"cropperjs",
+					"crypto-js",
 					"exceljs",
 					"file-saver",
 					"image-conversion",
@@ -93,7 +84,6 @@
 					"moment",
 					"moment/locale/vi",
 					"xlsx",
-					"editorjs-alert",
 					"leader-line-new",
 					"sweetalert2",
 					"core-js"
@@ -124,17 +114,7 @@
 					"namedChunks": false,
 					"buildOptimizer": true,
 					"serviceWorker": true,
-					"outputPath": "dist/production/browser",
-					"fileReplacements": [
-						{
-							"replace": "apps/web/src/environments/environment.ts",
-							"with": "apps/web/src/environments/environment.staging.ts"
-						},
-						{
-							"replace": "apps/web/src/environments/hash.ts",
-							"with": "apps/web/src/environments/hash.staging.ts"
-						}
-					]
+					"outputPath": "dist/production/browser"
 				},
 				"production": {
 					"outputHashing": "all",
@@ -145,17 +125,7 @@
 					"extractLicenses": true,
 					"buildOptimizer": true,
 					"serviceWorker": true,
-					"outputPath": "dist/production/browser",
-					"fileReplacements": [
-						{
-							"replace": "apps/web/src/environments/environment.ts",
-							"with": "apps/web/src/environments/environment.production.ts"
-						},
-						{
-							"replace": "apps/web/src/environments/hash.ts",
-							"with": "apps/web/src/environments/hash.production.ts"
-						}
-					]
+					"outputPath": "dist/production/browser"
 				}
 			}
 		},
@@ -227,12 +197,14 @@
 				}
 			}
 		},
-		"prerender": {
-			"executor": "@angular-devkit/build-angular:prerender",
+		"serve-ssr": {
+			"executor": "@angular-devkit/build-angular:ssr-dev-server",
 			"options": {
-				"routes": ["/"],
 				"browserTarget": "web:build",
-				"serverTarget": "web:server"
+				"serverTarget": "web:server",
+				"host": "localhost",
+				"port": 8888,
+				"open": true
 			},
 			"configurations": {
 				"production": {
@@ -249,37 +221,12 @@
 				}
 			}
 		},
-		"serve": {
-			"executor": "@angular-builders/custom-webpack:dev-server",
+		"prerender": {
+			"executor": "@angular-devkit/build-angular:prerender",
 			"options": {
-				"buildTarget": "web:build",
-				"host": "0.0.0.0",
-				"port": 8888,
-				"open": true
-			},
-			"configurations": {
-				"aot": {
-					"buildTarget": "web:build:aot"
-				},
-				"production": {
-					"buildTarget": "web:build:production"
-				},
-				"develop": {
-					"buildTarget": "web:build:develop"
-				},
-				"staging": {
-					"buildTarget": "web:build:staging"
-				}
-			}
-		},
-		"serve-ssr": {
-			"executor": "@angular-devkit/build-angular:ssr-dev-server",
-			"options": {
+				"routes": ["/"],
 				"browserTarget": "web:build",
-				"serverTarget": "web:server",
-				"host": "localhost",
-				"port": 8080,
-				"open": true
+				"serverTarget": "web:server"
 			},
 			"configurations": {
 				"production": {

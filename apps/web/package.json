@@ -8,7 +8,7 @@
 		"sass-lint": "node --max-old-space-size=4096 ./node_modules/sass-lint/bin/sass-lint.js",
 		"pug-lint": "node --max-old-space-size=4096 ./node_modules/pug-lint/bin/pug-lint",
 		"version-patch": "npm --no-git-tag-version version patch && node store-version.js",
-		"aot": "nx serve --host localhost --configuration=aot",
+		"aot": "nx serve-ssr --host localhost --configuration=aot",
 		"dev": "nx serve-ssr --configuration=develop",
 		"prod": "nx serve-ssr --host localhost --configuration=production",
 		"build": "nx build --configuration=develop && nx server --configuration=develop",
@@ -36,8 +36,12 @@
 		"@editorjs/raw": "^2.4.0",
 		"@editorjs/table": "^2.2.2",
 		"@editorjs/underline": "^1.1.0",
+		"@editorjs/embed": "^2.7.4",
+		"@editorjs/image": "^2.9.3",
+		"@editorjs/link": "^2.6.2",
+		"editorjs-alert": "^1.1.4",
+		"editorjs-text-color-plugin": "^2.0.4",
 		"@fortawesome/fontawesome-free": "^6.6.0",
-		"@types/swiper": "^6.0.0",
 		"angular-resizable-element": "^7.0.2",
 		"angular-svg-round-progressbar": "^12.0.0",
 		"angularx-qrcode": "^17.0.1",
@@ -53,20 +57,13 @@
 		"ng-lazyload-image": "^9.1.3",
 		"ng-recaptcha": "^13.2.1",
 		"ngx-color": "^5.1.3",
-		"primeicons": "^7.0.0",
-		"primeng": "^17.18.9",
-		"resize-observer-polyfill": "^1.5.1",
-		"swiper": "^11.1.11",
-		"tslib": "^2.4.0"
+		"resize-observer-polyfill": "^1.5.1"
 	},
 	"devDependencies": {
 		"@angularclass/hmr": "^3.0.0",
 		"@babel/core": "^7.4.5",
 		"@babel/preset-env": "^7.4.5",
 		"@babel/preset-flow": "^7.0.0",
-		"@types/file-saver": "^2.0.7",
-		"@types/lodash": "^4.17.6",
-		"sass-lint": "^1.13.1",
-		"ts-mixer": "^6.0.3"
+		"@types/file-saver": "^2.0.7"
 	}
 }
