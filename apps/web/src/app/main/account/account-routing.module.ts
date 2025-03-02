@@ -7,21 +7,15 @@ import {
 
 import {
 	I18nLazyRouterModule,
-	IRouteData
 } from '@core';
 
 import {
 	CONSTANT
 } from './resources';
 
-// import { AuthGrantService } from '../auth/services';
-
-const routeData: IRouteData = { cache: false };
 const routes: Routes = [
 	{
-		path		: CONSTANT.PATH.MAIN,
-		// canActivate	: [ AuthGrantService ],
-		data		: routeData,
+		path		: CONSTANT.PATH.MAIN
 	},
 ];
 

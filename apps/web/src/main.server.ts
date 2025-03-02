@@ -3,7 +3,7 @@ import './polyfills.server';
 
 // Use server of native executor
 import { AppServerModule } from './app/app.server.module';
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, NgZone } from '@angular/core';
 
 if ( process.env.ENV_NAME === 'prod' ) {
 	enableProdMode();
@@ -13,6 +13,7 @@ if ( process.env.ENV_NAME === 'prod' ) {
 import 'zone.js/node';
 import { APP_BASE_HREF } from '@angular/common';
 import { CommonEngine } from '@angular/ssr';
+import { existsSync } from 'node:fs';
 import express, { RequestHandler } from 'express';
 import { join } from 'node:path';
 import compression from 'compression';
@@ -24,9 +25,11 @@ export function app(): express.Express {
 		process.cwd(),
 		isProduction ? '/app/dist/production/browser' : '../../dist/web/browser'
 	);
-	// Adjust the path if your browser build output is elsewhere
 
-	const indexHtml = join( distFolder, 'index.html' );
+	// Adjust the path if your browser build output is elsewhere
+	const indexHtml = existsSync(join(distFolder, 'index.original.html'))
+		? join(distFolder, 'index.original.html')
+		: join(distFolder, 'index.html');
 	const commonEngine = new CommonEngine();
 
 	// Set view engine and views directory
@@ -46,6 +49,7 @@ export function app(): express.Express {
 			res.sendFile( join( distFolder, 'index.html' ) );
 		});
 	});
+	const ngZone = new NgZone({ shouldCoalesceEventChangeDetection: true });
 
 	// Use SSR for all other routes
 	server.get( '*', ( req, res, next ) => {
@@ -59,7 +63,10 @@ export function app(): express.Express {
 				documentFilePath: indexHtml,
 				url: fullUrl,
 				publicPath: distFolder,
-				providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+				providers: [
+					{ provide: APP_BASE_HREF, useValue: baseUrl },
+					{ provide: NgZone, useValue: ngZone },
+				],
 			})
 			.then( ( html ) => res.send( html ) )
 			.catch( ( err ) => next( err ) );

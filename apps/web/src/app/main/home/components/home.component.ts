@@ -13,13 +13,13 @@ import {
 
 @Unsubscriber()
 @Component({
-	selector		: 'base',
-	templateUrl		: '../templates/base.pug',
-	styleUrls		: [ '../styles/base.scss' ],
-	host			: { class: 'base' },
+	selector		: 'home',
+	templateUrl		: '../templates/home.pug',
+	styleUrls		: [ '../styles/home.scss' ],
+	host			: { class: 'home' },
 	changeDetection	: ChangeDetectionStrategy.OnPush,
 })
-export class BaseComponent implements AfterViewInit {
+export class HomeComponent implements AfterViewInit {
 
 	constructor( @Inject( PLATFORM_ID ) private platformId: Object ) {}
 

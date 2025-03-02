@@ -1,18 +1,25 @@
 import { NgModule } from '@angular/core';
 import { ServerModule } from '@angular/platform-server';
-import { CommonModule } from '@angular/common';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { AuthInterceptor } from '@main/auth/interceptors';
 
 @NgModule({
 	imports: [
-		AppModule,
-		ServerModule,
-		CommonModule,
+		AppModule, // Import shared client-side logic
+		ServerModule, // Enable SSR functionality
 	],
-	providers: [ provideHttpClient( withFetch() ) ],
-	bootstrap: [ AppComponent ],
+	providers: [
+		provideHttpClient(withFetch()), // Optimize HTTP requests for server
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptor,
+			multi: true, // Retain authentication logic
+		},
+	],
+	bootstrap: [AppComponent], // Bootstrap the root component
 })
 export class AppServerModule {}

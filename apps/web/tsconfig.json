@@ -18,7 +18,7 @@
 			"angular-core": ["../../../dist/angular-core"],
 		},
 	},
-	"include": ["**/*.ts"],
+	"include": ["**/*.ts", "**/*.json"],
 	"angularCompilerOptions": {
 		"allowEmptyCodegenFiles": true,
 		"fullTemplateTypeCheck": true,

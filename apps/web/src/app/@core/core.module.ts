@@ -1,7 +1,8 @@
 import {
 	Inject,
 	NgModule,
-	Optional
+	Optional,
+	PLATFORM_ID
 } from '@angular/core';
 import {
 	LazyLoadImageModule
@@ -62,6 +63,9 @@ import {
 	MetaEmbedPipe,
 	PhonePipe
 } from './pipes';
+import {
+	CustomTranslateLoader
+} from 'app/custom-translate-loader';
 
 @NgModule({
 	imports: [
@@ -70,9 +74,9 @@ import {
 
 		I18nLazyTranslateModule.forChild({
 			prefix: 'CORE',
-			loader: ( lang: string ) => {
-				const translations = require(`./i18n/${lang}.json`);
-				return Promise.resolve( translations );
+			loader: (lang: string) => {
+				const loader = new CustomTranslateLoader(PLATFORM_ID);
+				return loader.getTranslation(lang).toPromise();
 			}
 		}),
 

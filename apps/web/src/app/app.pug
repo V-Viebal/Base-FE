@@ -1,9 +1,2 @@
 section.app.flex.layout-column
-	+defer('when !isReady')
-		router-outlet
-	+placeholder
-		.splash-screen
-			cub-image(
-				noLazy,
-				width='220px',
-				[src]='"APP_LOGO_VERTICAL" | environment')
+	router-outlet

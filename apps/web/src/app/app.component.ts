@@ -18,8 +18,6 @@ import {
 })
 export class AppComponent implements OnInit {
 
-	protected isReady: boolean;
-
 	private readonly _cdRef: ChangeDetectorRef
 		= inject( ChangeDetectorRef );
 	private readonly _localeService: LocaleService
@@ -29,14 +27,5 @@ export class AppComponent implements OnInit {
 		this._localeService.useLocale( 'vi' ).subscribe( () => {
 			this._cdRef.markForCheck();
 		} );
-
-		setTimeout(
-			() => {
-				this.isReady = true;
-
-				this._cdRef.markForCheck();
-			},
-			500
-		);
 	}
 }

@@ -12,26 +12,21 @@ import {
 } from '@error/components';
 
 import {
-	IRouteData
-} from '@core';
+	HomeComponent
+} from '@main/home/components';
 
 import {
 	CustomPreloadingStrategy
 } from './custom-preloading-strategy';
 
-const routeData: IRouteData = { cache: false };
 const routes: Routes = [
 	{
 		path		: '',
-		loadChildren: () =>
-			import( './main/base/base.module' )
-			.then( ( m: any ) => m.BaseModule ),
-		data		: { preload: true, ...routeData },
+		component	: HomeComponent,
 	},
 	{
 		path		: '**',
 		component	: ErrorComponent,
-		data		: routeData,
 	},
 ];
 

@@ -34,4 +34,10 @@ module.exports = {
 			path: path.resolve(__dirname, '.env')
 		}),
 	],
+	resolve: {
+		fallback: {
+			"fs": false,
+			"path": false,
+		},
+	},
 };

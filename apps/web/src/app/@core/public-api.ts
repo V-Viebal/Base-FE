@@ -5,9 +5,6 @@ export { CoreModule } from './core.module';
 // Components
 export * from './components';
 
-// Interfaces
-export * from './interfaces';
-
 // Helpers
 export * from './helpers';
 

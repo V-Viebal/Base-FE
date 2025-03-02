@@ -1,5 +1,6 @@
 import {
-	NgModule
+	NgModule,
+	PLATFORM_ID
 } from '@angular/core';
 
 import {
@@ -10,6 +11,9 @@ import {
 import {
 	AccountRoutingModules
 } from './account-routing.module';
+import {
+	CustomTranslateLoader
+} from 'app/custom-translate-loader';
 
 @NgModule({
 	imports: [
@@ -17,9 +21,9 @@ import {
 
 		I18nLazyTranslateModule.forChild({
 			prefix: 'ACCOUNT',
-			loader: ( lang: string ) => {
-				const translations = require(`./i18n/${lang}.json`);
-				return Promise.resolve( translations );
+			loader: (lang: string) => {
+				const loader = new CustomTranslateLoader(PLATFORM_ID);
+				return loader.getTranslation(lang).toPromise();
 			}
 		}),
 

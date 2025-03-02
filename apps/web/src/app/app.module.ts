@@ -1,7 +1,9 @@
 import {
 	ModuleWithProviders,
 	NgModule,
-	inject
+	NgZone,
+	PLATFORM_ID,
+	inject,
 } from '@angular/core';
 import {
 	BrowserModule,
@@ -45,6 +47,9 @@ import {
 import {
 	AuthInterceptor
 } from '@main/auth/interceptors';
+import {
+	HomeComponent
+} from '@main/home/components';
 
 import {
 	AppRoutingModules
@@ -52,6 +57,9 @@ import {
 import {
 	AppComponent
 } from './app.component';
+import {
+	CustomTranslateLoader
+} from './custom-translate-loader';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const ServiceWorkerModule: ModuleWithProviders<SWModule>
@@ -68,8 +76,8 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 		I18nLazyTranslateModule.forRoot({
 			prefix: 'APP',
 			loader: (lang: string) => {
-				const translations = require(`./i18n/${lang}.json`);
-				return Promise.resolve( translations );
+				const loader = new CustomTranslateLoader(PLATFORM_ID);
+				return loader.getTranslation(lang).toPromise();
 			}
 		}),
 
@@ -84,6 +92,7 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 	],
 	declarations: [
 		AppComponent,
+		HomeComponent
 	],
 	providers: [
 		provideClientHydration(),
@@ -100,6 +109,10 @@ const ServiceWorkerModule: ModuleWithProviders<SWModule>
 			provide: HTTP_INTERCEPTORS,
 			useClass: AuthInterceptor,
 			multi: true,
+		},
+		{
+			provide: NgZone,
+			useFactory: () => new NgZone({ shouldCoalesceEventChangeDetection: true }),
 		},
 	],
 	bootstrap: [ AppComponent ],
