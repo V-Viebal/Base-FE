@@ -11,7 +11,6 @@ import {
 } from '@core';
 
 import {
-	ResetPasswordComponent,
 	SignOutComponent,
 	SignInComponent
 } from './components';
@@ -24,11 +23,6 @@ const routes: Routes = [
 	{
 		path: CONSTANT.PATH.SIGN_IN,
 		component: SignInComponent,
-		data: routeData,
-	},
-	{
-		path: CONSTANT.PATH.RESET_PASSWORD,
-		component: ResetPasswordComponent,
 		data: routeData,
 	},
 	{

@@ -1,4 +1,5 @@
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
 	module: {
@@ -12,13 +13,15 @@ module.exports = {
 							method: 'render',
 							doctype: 'html',
 							plugins: [require('pug-plugin-ng')],
-
-						}
+						},
 					},
 					{
-						loader: path.resolve(__dirname, './prepend-mixin-loader.js')
-					}
-				]
+						loader: path.resolve(
+							__dirname,
+							'./prepend-mixin-loader.js'
+						),
+					},
+				],
 			},
 			{
 				test: /\.(png|jpg|jpeg)/,
@@ -26,4 +29,9 @@ module.exports = {
 			},
 		],
 	},
+	plugins: [
+		new Dotenv({
+			path: path.resolve(__dirname, '.env')
+		}),
+	],
 };

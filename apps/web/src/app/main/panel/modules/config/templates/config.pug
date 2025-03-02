@@ -11,7 +11,7 @@ p-toolbar(styleClass='mb-4 gap-2')
 	+if('loaded')
 		form.layout-column.layout-align-start-center.layout-gap-20.ph-40.miw-200.maw-600(
 			[formGroup]='configForm',
-			(ngSubmit)='update()')
+			(ngSubmit)='save()')
 			cub-form-field.full-width(
 				size='xlarge',
 				label='Số điện thoại')

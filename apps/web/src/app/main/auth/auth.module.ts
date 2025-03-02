@@ -37,7 +37,6 @@ import {
 	AuthRoutingModule
 } from './auth-routing.module';
 import {
-	ResetPasswordComponent,
 	SignInComponent
 } from './components';
 
@@ -64,11 +63,9 @@ import {
 		AuthRoutingModule,
 	],
 	exports: [
-		ResetPasswordComponent,
 		SignInComponent,
 	],
 	declarations: [
-		ResetPasswordComponent,
 		SignInComponent,
 	],
 })

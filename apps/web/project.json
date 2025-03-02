@@ -16,7 +16,8 @@
 				"outputPath": "dist/web",
 				"index": "apps/web/src/index.html",
 				"main": "apps/web/src/main.ts",
-				"tsConfig": "apps/web/tsconfig.json",
+				"polyfills": "apps/web/src/polyfills.ts",
+				"tsConfig": "apps/web/src/tsconfig.app.json",
 				"webWorkerTsConfig": "apps/web/src/tsconfig.worker.json",
 				"ngswConfigPath": "apps/web/ngsw-config.json",
 				"outputHashing": "none",
@@ -46,17 +47,9 @@
 				],
 				"styles": [
 					"apps/web/src/scss/styles.scss",
-					"apps/web/src/scss/libs.scss",
-					"node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-					"node_modules/swiper/swiper-bundle.min.css",
-					"node_modules/swiper/modules/navigation.min.css",
-					"node_modules/swiper/modules/pagination.min.css",
-					"node_modules/primeicons/primeicons.css",
-					"node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-					"node_modules/primeng/resources/primeng.min.css"
+					"apps/web/src/scss/libs.scss"
 				],
 				"scripts": [
-					"node_modules/swiper/swiper-bundle.min.js",
 					"apps/web/preload-font.js"
 				],
 				"stylePreprocessorOptions": {
@@ -79,14 +72,14 @@
 					"@editorjs/embed",
 					"@editorjs/link",
 					"@editorjs/image",
-					"@editorjs/image",
-					"angular-svg-round-progressbar",
-					"cropperjs",
-					"crypto-js",
 					"editorjs-drag-drop",
 					"editorjs-text-alignment-blocktune",
 					"editorjs-text-color-plugin",
 					"editorjs-undo",
+					"editorjs-alert",
+					"angular-svg-round-progressbar",
+					"cropperjs",
+					"crypto-js",
 					"exceljs",
 					"file-saver",
 					"image-conversion",
@@ -94,37 +87,29 @@
 					"moment-timezone",
 					"moment",
 					"moment/locale/vi",
-					"quill-magic-url",
-					"quill-table",
-					"quill",
-					"xlsx"
+					"xlsx",
+					"leader-line-new",
+					"sweetalert2",
+					"core-js"
 				]
 			},
 			"configurations": {
-				"local": {
-					"fileReplacements": [
-						{
-							"replace": "apps/web/src/environments/environment.ts",
-							"with": "apps/web/src/environments/environment.local.ts"
-						}
-					]
-				},
 				"aot": {
 					"aot": true
 				},
-				"dev": {
+				"develop": {
 					"fileReplacements": [
 						{
 							"replace": "apps/web/src/environments/environment.ts",
-							"with": "apps/web/src/environments/environment.dev.ts"
+							"with": "apps/web/src/environments/environment.develop.ts"
 						},
 						{
 							"replace": "apps/web/src/environments/hash.ts",
-							"with": "apps/web/src/environments/hash.dev.ts"
+							"with": "apps/web/src/environments/hash.develop.ts"
 						}
 					]
 				},
-				"testing": {
+				"staging": {
 					"outputHashing": "all",
 					"aot": true,
 					"optimization": true,
@@ -133,14 +118,19 @@
 					"namedChunks": false,
 					"buildOptimizer": true,
 					"serviceWorker": true,
+					"outputPath": "dist/production/browser",
 					"fileReplacements": [
 						{
 							"replace": "apps/web/src/environments/environment.ts",
-							"with": "apps/web/src/environments/environment.testing.ts"
+							"with": "apps/web/src/environments/environment.staging.ts"
 						},
 						{
 							"replace": "apps/web/src/environments/hash.ts",
-							"with": "apps/web/src/environments/hash.testing.ts"
+							"with": "apps/web/src/environments/hash.staging.ts"
+						},
+						{
+							"replace": "apps/web/webpack.config.js",
+							"with": "apps/web/webpack.config.prod.js"
 						}
 					]
 				},
@@ -153,7 +143,7 @@
 					"extractLicenses": true,
 					"buildOptimizer": true,
 					"serviceWorker": true,
-					"outputPath": "dist/production",
+					"outputPath": "dist/production/browser",
 					"fileReplacements": [
 						{
 							"replace": "apps/web/src/environments/environment.ts",
@@ -162,6 +152,10 @@
 						{
 							"replace": "apps/web/src/environments/hash.ts",
 							"with": "apps/web/src/environments/hash.production.ts"
+						},
+						{
+							"replace": "apps/web/webpack.config.js",
+							"with": "apps/web/webpack.config.prod.js"
 						}
 					]
 				}
@@ -171,25 +165,22 @@
 			"executor": "@angular-builders/custom-webpack:dev-server",
 			"options": {
 				"buildTarget": "web:build",
-				"host": "0.0.0.0",
+				"host": "localhost",
 				"port": 8888,
 				"open": true
 			},
 			"configurations": {
-				"local": {
-					"buildTarget": "web:build:local"
-				},
 				"aot": {
 					"buildTarget": "web:build:aot"
 				},
+				"develop": {
+					"buildTarget": "web:build:develop"
+				},
+				"staging": {
+					"buildTarget": "web:build:staging"
+				},
 				"production": {
 					"buildTarget": "web:build:production"
-				},
-				"dev": {
-					"buildTarget": "web:build:dev"
-				},
-				"testing": {
-					"buildTarget": "web:build:testing"
 				}
 			}
 		},
@@ -197,15 +188,6 @@
 			"executor": "@angular-builders:extract-i18n",
 			"options": {
 				"buildTarget": "web:build"
-			}
-		},
-		"lint": {
-			"executor": "@angular-builders/custom-webpack:extract-i18n",
-			"options": {
-				"lintFilePatterns": [
-					"apps/web/src/**/*.ts",
-					"apps/web/src/**/*.html"
-				]
 			}
 		}
 	},

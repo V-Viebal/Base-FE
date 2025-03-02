@@ -18,4 +18,20 @@
 			"angular-core": ["../../../dist/angular-core"],
 		},
 	},
+	"include": ["**/*.ts"],
+	"angularCompilerOptions": {
+		"allowEmptyCodegenFiles": true,
+		"fullTemplateTypeCheck": true,
+		"ivyTemplateTypeCheck": true,
+		"strictInputTypes": false,
+		"strictInputAccessModifiers": true,
+		"strictNullInputTypes": true,
+		"strictAttributeTypes": true,
+		"strictSafeNavigationTypes": true,
+		"strictDomLocalRefTypes": true,
+		"strictOutputEventTypes": true,
+		"strictDomEventTypes": true,
+		"strictContextGenerics": true,
+		"strictLiteralTypes": true
+	},
 }
