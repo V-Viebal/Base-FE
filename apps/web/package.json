@@ -1,8 +1,7 @@
 {
-	"name": "web",
-	"version": "0.0.",
-	"description": "Web",
-	"authors": "Web Team",
+	"name": "csr",
+	"version": "0.0.0",
+	"authors": "Mons",
 	"private": true,
 	"scripts": {
 		"sass-lint": "node --max-old-space-size=4096 ./node_modules/sass-lint/bin/sass-lint.js",
@@ -16,10 +15,6 @@
 		"prerender": "nx prerender --configuration=develop",
 		"prerender-prod": "nx prerender --configuration=production",
 		"build-prerender": "nx run build && nx run prerender && node ../../dist/web/server/main.js"
-	},
-	"engines": {
-		"node": ">=20.15.0",
-		"npm": ">=10.7.0"
 	},
 	"dependencies": {
 		"@angular/animations": "^17.3.11",

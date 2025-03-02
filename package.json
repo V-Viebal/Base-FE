@@ -1,9 +1,8 @@
 {
-	"name": "frontend",
-	"version": "0.0.1",
-	"description": "Frontend",
+	"name": "basement",
+	"version": "0.0.0",
 	"license": "MIT",
-	"authors": "Frontend Team",
+	"authors": "Mons",
 	"private": true,
 	"workspaces": [
 		"apps/*",
