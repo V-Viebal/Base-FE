@@ -16,16 +16,7 @@ import {
 export const routes: Routes = [
 	{
 		path		: '',
-		component	: BaseComponent,
-		children	: [
-			{
-				path		: '',
-				loadChildren: () =>
-					import( './modules/home/home.module' )
-					.then( ( m: any ) => m.HomeModule ),
-				data		: { preload: true },
-			},
-		],
+		component	: BaseComponent
 	},
 ];
 

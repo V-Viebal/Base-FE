@@ -16,21 +16,11 @@ import {
 } from '@cub/material';
 
 import {
-	NavigationBarModule
-} from '@main/common/navigation-bar/navigation-bar.module';
-import {
-	FooterModule
-} from '@main/common/footer/footer.module';
-
-import {
 	BaseComponent
 } from './components';
 import {
 	BaseRoutingModule
 } from './base-routing.module';
-import {
-	HomeModule
-} from './modules/home/home.module';
 import {
 	BaseService
 } from './services';
@@ -54,10 +44,6 @@ import {
 		CUBScrollBarModule,
 
 		BaseRoutingModule,
-
-		NavigationBarModule,
-		FooterModule,
-		HomeModule,
 	],
 	exports: [
 		BaseComponent,
